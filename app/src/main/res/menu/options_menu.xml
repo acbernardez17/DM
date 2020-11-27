@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/file"
-        android:title="Title" >
-        <!-- "file" submenu -->
-        <menu>
-            <item android:id="@+id/create_new"
-                android:title="op1" />
-            <item android:id="@+id/open"
-                android:title="op2" />
-        </menu>
-    </item>
+    <item android:id="@+id/estadisticas"
+        android:title="Ver estadísticas" />
+    <item android:id="@+id/detalles_coche"
+        android:title="Detalles del coche" />
 </menu>
