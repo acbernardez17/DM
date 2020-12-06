@@ -17,11 +17,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre"/>
+            android:id="@+id/coche_matricula"
+            android:hint="Matrícula"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descripción"/>
+            android:id="@+id/coche_nombre"
+            android:hint="Nombre"/>
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +43,18 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/coche_combustible_max"
             android:hint="Capacidad del tanque (litros)"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/coche_km_iniciales"
+            android:hint="Km iniciales"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/coche_litros_iniciales"
+            android:hint="Litros iniciales"/>
     </LinearLayout>
 
     <LinearLayout
@@ -55,19 +68,24 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/coche_marca"
             android:hint="Marca"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/coche_modelo"
             android:hint="Modelo"/>
-        <EditText
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Matrícula"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Número de póliza"/>
+            android:id="@+id/coche_detalles_guardar_btn"
+            android:text="Guardar"/>
     </LinearLayout>
 
 </LinearLayout>
