@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.aad.esei.uvigo.core.CustomList;
 import com.aad.esei.uvigo.R;
 
 public class MainActivity extends AppCompatActivity {

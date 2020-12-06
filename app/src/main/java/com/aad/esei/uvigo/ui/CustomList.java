@@ -1,4 +1,4 @@
-package com.aad.esei.uvigo.core;
+package com.aad.esei.uvigo.ui;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
