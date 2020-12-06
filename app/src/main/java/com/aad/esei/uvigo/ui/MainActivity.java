@@ -1,4 +1,4 @@
-package com.aad.esei.uvigo;
+package com.aad.esei.uvigo.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.aad.esei.uvigo.core.CustomList;
+import com.aad.esei.uvigo.R;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+
 
 
         ListView listView = (ListView)findViewById(R.id.list_icons);

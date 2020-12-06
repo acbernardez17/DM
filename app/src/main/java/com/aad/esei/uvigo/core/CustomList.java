@@ -1,4 +1,4 @@
-package com.aad.esei.uvigo;
+package com.aad.esei.uvigo.core;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.aad.esei.uvigo.R;
 
 public class CustomList extends ArrayAdapter{
     private String[] tipoGastos;

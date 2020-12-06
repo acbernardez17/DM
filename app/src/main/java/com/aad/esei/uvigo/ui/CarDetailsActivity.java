@@ -1,4 +1,4 @@
-package com.aad.esei.uvigo;
+package com.aad.esei.uvigo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import com.aad.esei.uvigo.R;
 
 public class CarDetailsActivity extends Activity {
     @Override

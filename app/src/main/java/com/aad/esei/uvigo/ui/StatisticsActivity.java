@@ -1,4 +1,4 @@
-package com.aad.esei.uvigo;
+package com.aad.esei.uvigo.ui;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aad.esei.uvigo.R;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 
