@@ -48,7 +48,7 @@ public class Coche {
     //Gastos en lo que va de anho
     public float gastosAnho() throws ParseException {
         float toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         int year = Calendar.getInstance().get(Calendar.YEAR);
         Calendar cal = Calendar.getInstance();
@@ -65,7 +65,7 @@ public class Coche {
     //Gastos en el ultimo año
     public float gastosUltimoAnho() throws ParseException {
         float toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         Calendar yearAgo = Calendar.getInstance();
         yearAgo.add(Calendar.YEAR,-1);
@@ -93,7 +93,7 @@ public class Coche {
     //Gastos en lo que va de mes de combustible
     public float gastoCombusMes() throws ParseException {
         float toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         int month = Calendar.getInstance().get(Calendar.MONTH);
         Calendar cal = Calendar.getInstance();
@@ -112,7 +112,7 @@ public class Coche {
     //Gastos en los ultimos 30 dias de combustible
     public float gastoCombus30Dias() throws ParseException {
         float toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         Calendar monthAgo = Calendar.getInstance();
         monthAgo.add(Calendar.DATE,-30);

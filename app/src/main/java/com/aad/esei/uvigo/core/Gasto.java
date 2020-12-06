@@ -3,7 +3,7 @@ package com.aad.esei.uvigo.core;
 public class Gasto {
     private Categoria_Gasto categoria;
     private float precio;
-    private String fecha; //Formato fecha: dd-MM-yyyy HH:mm:ss
+    private String fecha; //Formato fecha: yyyy-MM-dd HH:mm:ss
     private String titulo;
 
     public Gasto(Categoria_Gasto categoria, float precio, String fecha, String titulo) {
