@@ -5,6 +5,9 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,17 +16,23 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aad.esei.uvigo.R;
 import com.aad.esei.uvigo.core.CocheDAO;
 import com.aad.esei.uvigo.core.DBManager;
 
-public class CarDetailsActivity extends Activity {
+public class CarDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.car_details_editor_layout);
+
+        ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Spinner spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
@@ -32,25 +41,6 @@ public class CarDetailsActivity extends Activity {
 
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCombustible.setAdapter(spinnerAdapter);
-
-        Button saveCarDetailsButton = this.findViewById(R.id.coche_detalles_guardar_btn);
-        saveCarDetailsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
-                if ( "".equals(pk) ) {
-                    String primaryKey = CarDetailsActivity.this.saveCarDetails();
-                    CarDetailsActivity.this.setResult(RESULT_OK,new Intent()
-                            .putExtra("pk", primaryKey));
-                } else {
-                    String primaryKey = CarDetailsActivity.this.updateCarDetails(pk);
-                    CarDetailsActivity.this.setResult(RESULT_OK,new Intent()
-                            .putExtra("pk", primaryKey));
-                }
-
-                CarDetailsActivity.this.finish();
-            }
-        });
 
         String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
         if ( !"".equals(pk) ) {
@@ -126,5 +116,41 @@ public class CarDetailsActivity extends Activity {
 
         CocheDAO cocheDAO = new CocheDAO(DBManager.getManager(this.getApplicationContext()));
         return cocheDAO.insert(matricula.getText().toString(), valores);
+    }
+
+    private void saveCar() {
+        String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
+        String primaryKey = "";
+        if ( "".equals(pk) ) {
+            primaryKey = CarDetailsActivity.this.saveCarDetails();
+        } else {
+            primaryKey = CarDetailsActivity.this.updateCarDetails(pk);
+        }
+
+        CarDetailsActivity.this.setResult(RESULT_OK,new Intent()
+                .putExtra("pk", primaryKey));
+
+        CarDetailsActivity.this.finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.add_car_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_car_icon:
+                this.saveCar();
+                return true;
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

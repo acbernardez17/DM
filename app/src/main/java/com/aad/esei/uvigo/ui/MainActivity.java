@@ -183,6 +183,10 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (resultCode == RESULT_OK && requestCode == EDIT_CAR_CODE) {
             this.updateSpinnerPerfiles();
+            this.setSpinnerSelection(spinnerPos);
+
+        } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
+            this.setSpinnerSelection(spinnerPos);
         }
     }
 
