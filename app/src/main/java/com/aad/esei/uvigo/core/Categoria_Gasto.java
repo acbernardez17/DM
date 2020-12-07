@@ -1,16 +1,17 @@
 package com.aad.esei.uvigo.core;
 
 public enum Categoria_Gasto {
-    ST(""),
-    MT(""),
-    IR(""),
-    PK(""),
-    LV(""),
-    PJ(""),
-    MUL(""),
-    MOD(""),
+    ST("Servicio Técnico"),
+    MT("Mantenimiento"),
+    IR("Impuestos Rodaje"),
+    PK("Parking"),
+    LV("Lavados"),
+    PJ("Peajes"),
+    MUL("Multas"),
+    MOD("Modificaciones"),
     SEG("Seguro"),
     ITV("ITV"),
+    OTRO("OTRO"),
     REP("Repostaje");
 
     private final String codigo;

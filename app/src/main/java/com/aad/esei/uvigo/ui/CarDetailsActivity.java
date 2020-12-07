@@ -73,7 +73,6 @@ public class CarDetailsActivity extends Activity {
         if (cursorCoches.moveToFirst()) {
             matricula.setText(cursorCoches.getString(0));
             matricula.setEnabled(false);
-
             nombre.setText(cursorCoches.getString(1));
             marca.setText(cursorCoches.getString(2));
             modelo.setText(cursorCoches.getString(3));

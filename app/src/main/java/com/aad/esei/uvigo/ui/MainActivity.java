@@ -148,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
             this.setSpinnerSelection(pk);
 
         } else if (resultCode == RESULT_CANCELED && requestCode == ADD_CAR_CODE) {
-            this.finish();
+            if (new CocheDAO(this.manager).getCochesCount() == 0) {
+                this.finish();
+            }
 
         } else if (resultCode == RESULT_OK && requestCode == EDIT_CAR_CODE) {
             this.updateSpinnerPerfiles();
@@ -169,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.estadisticas:
-                this.startActivity(new Intent(this, StatisticsActivity.class));
+                this.startActivity(new Intent(this, StatisticsActivity.class)
+                        .putExtra("coche", getSpinnerSelection() ));
                 toret = true;
                 break;
             case R.id.detalles_coche:

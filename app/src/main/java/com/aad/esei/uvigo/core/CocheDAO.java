@@ -72,4 +72,10 @@ public class CocheDAO {
         return db.rawQuery("SELECT * FROM " + DBManager.COCHE_TABLE
                         + " WHERE " + DBManager.COCHE_ID + " = ?", new String[]{pk});
     }
+
+    public int getCochesCount() {
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + DBManager.COCHE_TABLE, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
 }
