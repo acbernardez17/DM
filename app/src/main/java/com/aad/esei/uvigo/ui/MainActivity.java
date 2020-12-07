@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.Image;
@@ -20,8 +22,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aad.esei.uvigo.R;
+import com.aad.esei.uvigo.core.Categoria_Gasto;
 import com.aad.esei.uvigo.core.CocheDAO;
 import com.aad.esei.uvigo.core.DBManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private final int EDIT_CAR_CODE = 102;
 
     private ListView listView;
+    private int categNew;
 
     private String[] tipoGastos= {
             "",
@@ -90,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.list_icons);
         CustomList list =  new CustomList(this,tipoGastos, FechaGastos, KmGastos, CantidadGastos, idIcono);
         listView.setAdapter(list);
+
+        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fbtn_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.showAddDialog();
+            }
+        });
 
         ImageButton btnAddCar = (ImageButton) findViewById(R.id.btn_profile);
         btnAddCar.setOnClickListener(new View.OnClickListener() {
@@ -184,5 +197,37 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return toret;
+    }
+
+    public void showAddDialog(){
+        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
+        this.categNew = 0;
+
+        dlg.setTitle( "Selecciona tipo de gasto:" );
+
+        dlg.setSingleChoiceItems(
+                //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
+                Categoria_Gasto.arrayCategorias(),
+                0,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.categNew = which;
+                    }
+                }
+        );
+        dlg.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.startActivity(
+                        new Intent(MainActivity.this, AddExpenseActivity.class)
+                                .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
+                                .putExtra("pk", getSpinnerSelection()))
+                                ;
+            }
+        });
+        dlg.setNegativeButton("Cancelar", null);
+
+        dlg.create().show();
     }
 }

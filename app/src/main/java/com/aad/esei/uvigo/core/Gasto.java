@@ -2,11 +2,11 @@ package com.aad.esei.uvigo.core;
 
 public class Gasto {
     private Categoria_Gasto categoria;
-    private float precio;
+    private double precio;
     private String fecha; //Formato fecha: yyyy-MM-dd HH:mm:ss
     private String titulo;
 
-    public Gasto(Categoria_Gasto categoria, float precio, String fecha, String titulo) {
+    public Gasto(Categoria_Gasto categoria, double precio, String fecha, String titulo) {
         this.categoria = categoria;
         this.precio = precio;
         this.fecha = fecha;
@@ -18,7 +18,7 @@ public class Gasto {
         return categoria;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
@@ -34,7 +34,7 @@ public class Gasto {
         this.categoria = categoria;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

@@ -46,8 +46,8 @@ public class Coche {
     }
 
     //Gastos en lo que va de anho
-    public float gastosAnho() throws ParseException {
-        float toret = 0;
+    public double gastosAnho() throws ParseException {
+        double toret = 0;
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -63,8 +63,8 @@ public class Coche {
     }
 
     //Gastos en el ultimo año
-    public float gastosUltimoAnho() throws ParseException {
-        float toret = 0;
+    public double gastosUltimoAnho() throws ParseException {
+        double toret = 0;
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         Calendar yearAgo = Calendar.getInstance();
@@ -80,8 +80,8 @@ public class Coche {
         return toret;
     }
 
-    public float gastosMantenimiento(){
-        float toret = 0;
+    public double gastosMantenimiento(){
+        double toret = 0;
         for (Gasto g:gastos) {
             if (g.getCategoria().equalsCategoria("XXXXXXXXX")){ //Introducir categorías
                 toret+=g.getPrecio();
@@ -91,8 +91,8 @@ public class Coche {
     }
 
     //Gastos en lo que va de mes de combustible
-    public float gastoCombusMes() throws ParseException {
-        float toret = 0;
+    public double gastoCombusMes() throws ParseException {
+        double toret = 0;
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         int month = Calendar.getInstance().get(Calendar.MONTH);
@@ -110,8 +110,8 @@ public class Coche {
     }
 
     //Gastos en los ultimos 30 dias de combustible
-    public float gastoCombus30Dias() throws ParseException {
-        float toret = 0;
+    public double gastoCombus30Dias() throws ParseException {
+        double toret = 0;
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha;
         Calendar monthAgo = Calendar.getInstance();
@@ -130,8 +130,8 @@ public class Coche {
     }
 
     //Media de gasto de combustible por KMs recorridos
-    public float gastoCombusKm(){
-        float toret = 0;
+    public double gastoCombusKm(){
+        double toret = 0;
         int km_actuales = 0;
         Repostaje rep;
         for (Gasto g:gastos) {
