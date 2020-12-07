@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="10dp"
+    android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
     <LinearLayout
@@ -21,57 +21,30 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list_icons"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:layout_weight=".5"
-        />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbtn_add"
-        app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:focusable="true"
-        android:clickable="true"
-        android:backgroundTint="@color/blue"
-        android:tint="@android:color/background_light"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        <ListView
+            android:id="@+id/list_icons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:backgroundTint="@color/blue">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbtn_add"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:focusable="true"
+            android:clickable="true"
+            android:backgroundTint="@color/blue"
+            android:tint="@android:color/background_light"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/btn_home"
-            android:layout_width="30dp"
-            android:layout_height="60dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/home_icon_svg"
-            android:layout_weight="1"/>
 
-        <ImageButton android:id="@+id/btn_stat"
-            android:layout_width="30dp"
-            android:layout_height="60dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/stats_icon_svg"
-            android:layout_weight="1"
-            />
-        <ImageButton
-            android:id="@+id/btn_profile"
-            android:layout_width="30dp"
-            android:layout_height="60dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/profile_icon_svg"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
 
 </LinearLayout>

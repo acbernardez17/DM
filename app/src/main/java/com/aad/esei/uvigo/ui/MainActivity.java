@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DBManager manager;
     private ArrayList<String> perfiles;
+    private int spinnerPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,16 +103,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.this.showAddDialog();
-            }
-        });
-
-        ImageButton btnAddCar = (ImageButton) findViewById(R.id.btn_profile);
-        btnAddCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.this.startActivityForResult(
-                        new Intent(MainActivity.this, CarDetailsActivity.class)
-                        .putExtra("pk", ""), ADD_CAR_CODE);
             }
         });
 
@@ -131,11 +123,29 @@ public class MainActivity extends AppCompatActivity {
                     new Intent(this, CarDetailsActivity.class)
                     .putExtra("pk", ""), ADD_CAR_CODE);
         }
+        perfiles.add("Nuevo coche");
 
         Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
         spinnerPerfil.setAdapter(new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, perfiles
         ));
+        spinnerPerfil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == new CocheDAO(MainActivity.this.manager).getCochesCount()) {
+                    MainActivity.this.startActivityForResult(
+                            new Intent(MainActivity.this, CarDetailsActivity.class)
+                                    .putExtra("pk", ""), ADD_CAR_CODE);
+                } else {
+                    spinnerPos = spinnerPerfil.getSelectedItemPosition();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //nada
+            }
+        });
     }
 
     private String getSpinnerSelection() {
@@ -146,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
     private void setSpinnerSelection(String text) {
         Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
         int pos = this.perfiles.indexOf(text);
+        spinnerPerfil.setSelection(pos);
+    }
+
+    private void setSpinnerSelection(int pos) {
+        Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
         spinnerPerfil.setSelection(pos);
     }
 
@@ -164,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             if (new CocheDAO(this.manager).getCochesCount() == 0) {
                 this.finish();
             }
+            this.setSpinnerSelection(spinnerPos);
 
         } else if (resultCode == RESULT_OK && requestCode == EDIT_CAR_CODE) {
             this.updateSpinnerPerfiles();
