@@ -66,6 +66,96 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.list_icons);
         this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
         listView.setAdapter(elementCursorAdapter);
+
+        listView.setLongClickable( true );
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final CharSequence[] option = { "Editar", "Borrar", "Cancelar" };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Seleccione una opcion");
+                builder.setItems(option, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        //Obtenemos el cursor asociado al Adapter de la lista
+                        Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                        //Obtener id del gasto
+                        int ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
+                        switch (i){
+                            case 0:
+                                String categoria = cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_CATEGORIA));
+                                updateExpense(ID,categoria);
+                                break;
+                            case 1:
+                                MainActivity.this.verifyDelete(ID);//Borrar gasto de DB
+                                break;
+                            default:Log.i("aaa", "Opcion "+i);
+                                break;
+                        }
+                        dialog.dismiss();
+
+                    }
+                }).show();
+                return true;
+            }
+        });
+
+    }
+
+    private void updateExpense(int id, String categoria){
+        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
+        this.categNew = 0;
+
+        dlg.setTitle( "Selecciona tipo de gasto:" );
+
+        dlg.setSingleChoiceItems(
+                //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
+                Categoria_Gasto.arrayCategorias(),
+                Categoria_Gasto.getByCode(categoria).ordinal(),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.categNew = which;
+                    }
+                }
+        );
+        dlg.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.startActivityForResult(
+                        new Intent(MainActivity.this, AddExpenseActivity.class)
+                                .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
+                                .putExtra("pk_gasto",id)
+                                .putExtra("pk", getSpinnerSelection()),ADD_EXPENSE);
+                ;
+            }
+        });
+        dlg.setNegativeButton("Cancelar", null);
+
+        dlg.create().show();
+    }
+
+    private void verifyDelete(int id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setTitle("Borrar");
+        builder.setMessage("¿Quieres borrar el gasto?");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int i) {
+                gastoDAO.delete(Integer.toString(id));
+                MainActivity.this.updateCursorList();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int ii) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+        builder.show();
     }
 
     @Override

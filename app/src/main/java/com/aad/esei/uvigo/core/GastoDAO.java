@@ -99,13 +99,15 @@ public class GastoDAO {
     }
 
     public Cursor getAllGastosCoche(String pk){
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
-                        + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
-                , new String[]{pk});
         return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
                         + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
-                        + " ORDER BY " + DBManager.GASTO_FECHA + " DESC"
                 , new String[]{pk});
+    }
+
+    public Cursor getGastoById(String pk_gasto){
+        return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
+                        + " WHERE " + DBManager.GASTO_ID + " = ?"
+                , new String[]{pk_gasto});
     }
 
 
