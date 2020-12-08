@@ -1,6 +1,5 @@
 package com.aad.esei.uvigo.ui;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,13 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +21,7 @@ import com.aad.esei.uvigo.core.CocheDAO;
 import com.aad.esei.uvigo.core.DBManager;
 
 public class CarDetailsActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,24 +30,29 @@ public class CarDetailsActivity extends AppCompatActivity {
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinnerCombustible = this.findViewById(R.id.spinner_combustible);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-            this, R.array.tipos_combustible, android.R.layout.simple_spinner_item
-        );
-
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCombustible.setAdapter(spinnerAdapter);
+        this.setupTipoCombustibleDropdown();
 
         String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
         if ( !"".equals(pk) ) {
+            actionBar.setTitle("Editar coche");
             this.fillCarData(pk);
+        } else {
+            actionBar.setTitle("Nuevo coche");
         }
+    }
+
+    private void setupTipoCombustibleDropdown() {
+        AutoCompleteTextView spinnerCombustibleText = this.findViewById(R.id.spinner_combustible);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                this, R.array.tipos_combustible, android.R.layout.simple_spinner_dropdown_item
+        );
+        spinnerCombustibleText.setAdapter(spinnerAdapter);
     }
 
     private void fillCarData(String pk) {
         EditText matricula = this.findViewById(R.id.coche_matricula);
         EditText nombre = this.findViewById(R.id.coche_nombre);
-        Spinner spinnerCombustible = this.findViewById(R.id.spinner_combustible);
+        AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
         EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
@@ -66,7 +67,7 @@ public class CarDetailsActivity extends AppCompatActivity {
             nombre.setText(cursorCoches.getString(1));
             marca.setText(cursorCoches.getString(2));
             modelo.setText(cursorCoches.getString(3));
-            spinnerCombustible.setSelection(cursorCoches.getInt(4));
+            spinnerCombustible.setText(cursorCoches.getString(4), false);
             combustibleMax.setText(cursorCoches.getString(5));
             kmIniciales.setText(cursorCoches.getString(6));
             litrosIniciales.setText(cursorCoches.getString(7));
@@ -75,7 +76,7 @@ public class CarDetailsActivity extends AppCompatActivity {
 
     private String updateCarDetails(String pk) {
         EditText nombre = this.findViewById(R.id.coche_nombre);
-        Spinner spinnerCombustible = this.findViewById(R.id.spinner_combustible);
+        AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
         EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
@@ -84,7 +85,7 @@ public class CarDetailsActivity extends AppCompatActivity {
 
         ContentValues valores = new ContentValues();
         valores.put(DBManager.COCHE_NOMBRE, nombre.getText().toString());
-        valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getSelectedItemPosition());
+        valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getText().toString());
         valores.put(DBManager.COCHE_COMBUSTIBLE_MAX, combustibleMax.getText().toString());
         valores.put(DBManager.COCHE_KM_INICIALES, kmIniciales.getText().toString());
         valores.put(DBManager.COCHE_LITROS_INICIALES, litrosIniciales.getText().toString());
@@ -98,7 +99,7 @@ public class CarDetailsActivity extends AppCompatActivity {
     private String saveCarDetails() {
         EditText matricula = this.findViewById(R.id.coche_matricula);
         EditText nombre = this.findViewById(R.id.coche_nombre);
-        Spinner spinnerCombustible = this.findViewById(R.id.spinner_combustible);
+        AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
         EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
@@ -107,7 +108,7 @@ public class CarDetailsActivity extends AppCompatActivity {
 
         ContentValues valores = new ContentValues();
         valores.put(DBManager.COCHE_NOMBRE, nombre.getText().toString());
-        valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getSelectedItemPosition());
+        valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getText().toString());
         valores.put(DBManager.COCHE_COMBUSTIBLE_MAX, combustibleMax.getText().toString());
         valores.put(DBManager.COCHE_KM_INICIALES, kmIniciales.getText().toString());
         valores.put(DBManager.COCHE_LITROS_INICIALES, litrosIniciales.getText().toString());
@@ -119,18 +120,25 @@ public class CarDetailsActivity extends AppCompatActivity {
     }
 
     private void saveCar() {
-        String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
-        String primaryKey = "";
-        if ( "".equals(pk) ) {
-            primaryKey = CarDetailsActivity.this.saveCarDetails();
-        } else {
-            primaryKey = CarDetailsActivity.this.updateCarDetails(pk);
+        if (this.validateInput()) {
+            String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
+            String primaryKey = "";
+            if ("".equals(pk)) {
+                primaryKey = CarDetailsActivity.this.saveCarDetails();
+            } else {
+                primaryKey = CarDetailsActivity.this.updateCarDetails(pk);
+            }
+
+            CarDetailsActivity.this.setResult(RESULT_OK, new Intent()
+                    .putExtra("pk", primaryKey));
+
+            CarDetailsActivity.this.finish();
         }
+    }
 
-        CarDetailsActivity.this.setResult(RESULT_OK,new Intent()
-                .putExtra("pk", primaryKey));
-
-        CarDetailsActivity.this.finish();
+    private boolean validateInput() {
+        // Validar aquí los datos
+        return true;
     }
 
     @Override

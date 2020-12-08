@@ -55,7 +55,7 @@ public class DBManager extends SQLiteOpenHelper {
                     + COCHE_NOMBRE + " TEXT NOT NULL CHECK (length(" + COCHE_NOMBRE + ") < 10),"
                     + COCHE_MARCA + " TEXT CHECK (length(" + COCHE_MARCA + ") < 15), "
                     + COCHE_MODELO + " TEXT CHECK (length(" + COCHE_MODELO + ") < 15), "
-                    + COCHE_TIPO_COMBUSTIBLE + " INTEGER NOT NULL,"
+                    + COCHE_TIPO_COMBUSTIBLE + " TEXT NOT NULL,"
                     + COCHE_COMBUSTIBLE_MAX + " INTEGER NOT NULL,"
                     + COCHE_KM_INICIALES + " INTEGER,"
                     + COCHE_LITROS_INICIALES + " INTEGER"

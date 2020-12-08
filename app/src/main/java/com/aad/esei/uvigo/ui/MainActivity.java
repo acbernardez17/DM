@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,10 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aad.esei.uvigo.R;
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DBManager manager;
     private ArrayList<String> perfiles;
-    private int spinnerPos;
+    private String selectedPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +104,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         this.updateSpinnerPerfiles();
+        this.setSpinnerSelection(0);
+    }
+
+    private void setupPerfilSelector() {
+        AutoCompleteTextView spinnerCombustibleText = this.findViewById(R.id.sp_perfil);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
+                getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, perfiles
+        );
+        spinnerCombustibleText.setAdapter(spinnerAdapter);
+
+        spinnerCombustibleText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedPerfil = perfiles.get(position);
+                // -------> Llamar aquí a la función que actualiza el ListView de gastos !!!!! <-------
+            }
+        });
     }
 
     private void updateSpinnerPerfiles() {
@@ -114,54 +128,32 @@ public class MainActivity extends AppCompatActivity {
         this.perfiles = new ArrayList<>();
         if (cursorCoches.moveToFirst()) {
             do {
-                perfiles.add( cursorCoches.getString(0) );
+                this.perfiles.add( cursorCoches.getString(0) );
             } while (cursorCoches.moveToNext() );
         } else {
-            Toast.makeText(this, "Primera ejecución de la app: necesitas registrar un coche",
-                    Toast.LENGTH_LONG).show();
-            this.startActivityForResult(
-                    new Intent(this, CarDetailsActivity.class)
-                    .putExtra("pk", ""), ADD_CAR_CODE);
+            this.showFirstTimeDialog();
         }
-        perfiles.add("Nuevo coche");
 
-        Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
-        spinnerPerfil.setAdapter(new ArrayAdapter<String>(
-                getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, perfiles
-        ));
-        spinnerPerfil.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == new CocheDAO(MainActivity.this.manager).getCochesCount()) {
-                    MainActivity.this.startActivityForResult(
-                            new Intent(MainActivity.this, CarDetailsActivity.class)
-                                    .putExtra("pk", ""), ADD_CAR_CODE);
-                } else {
-                    spinnerPos = spinnerPerfil.getSelectedItemPosition();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //nada
-            }
-        });
+        this.setupPerfilSelector();
     }
 
     private String getSpinnerSelection() {
-        Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
-        return spinnerPerfil.getSelectedItem().toString();
+        return selectedPerfil;
     }
 
-    private void setSpinnerSelection(String text) {
-        Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
-        int pos = this.perfiles.indexOf(text);
-        spinnerPerfil.setSelection(pos);
+    private void setSpinnerSelection() {
+        this.setSpinnerSelection(perfiles.size() - 1);
     }
 
     private void setSpinnerSelection(int pos) {
-        Spinner spinnerPerfil = (Spinner) findViewById(R.id.sp_perfil);
-        spinnerPerfil.setSelection(pos);
+        if (perfiles.size() > pos) {
+            AutoCompleteTextView spinnerCombustibleText = this.findViewById(R.id.sp_perfil);
+            String text = perfiles.get(pos);
+
+            spinnerCombustibleText.setText(text);
+            this.selectedPerfil = text;
+            this.setupPerfilSelector();
+        }
     }
 
     @Override
@@ -173,20 +165,17 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Nuevo coche añadido con PK: " + pk, Toast.LENGTH_LONG).show();
             this.updateSpinnerPerfiles();
-            this.setSpinnerSelection(pk);
+            this.setSpinnerSelection();
 
         } else if (resultCode == RESULT_CANCELED && requestCode == ADD_CAR_CODE) {
             if (new CocheDAO(this.manager).getCochesCount() == 0) {
-                this.finish();
+                this.showFirstTimeDialog();
             }
-            this.setSpinnerSelection(spinnerPos);
 
         } else if (resultCode == RESULT_OK && requestCode == EDIT_CAR_CODE) {
             this.updateSpinnerPerfiles();
-            this.setSpinnerSelection(spinnerPos);
 
         } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
-            this.setSpinnerSelection(spinnerPos);
         }
     }
 
@@ -194,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -203,11 +192,17 @@ public class MainActivity extends AppCompatActivity {
         boolean toret = false;
 
         switch (item.getItemId()) {
+            case R.id.nuevo_coche:
+                this.launchActivityNewCar();
+                toret = true;
+                break;
+
             case R.id.estadisticas:
                 this.startActivity(new Intent(this, StatisticsActivity.class)
                         .putExtra("coche", getSpinnerSelection() ));
                 toret = true;
                 break;
+
             case R.id.detalles_coche:
                 this.startActivityForResult(
                         new Intent(this, CarDetailsActivity.class)
@@ -217,6 +212,32 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return toret;
+    }
+
+    private void launchActivityNewCar() {
+        this.startActivityForResult(
+                new Intent(this, CarDetailsActivity.class)
+                        .putExtra("pk", ""), ADD_CAR_CODE);
+    }
+
+    private void showFirstTimeDialog() {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setTitle("Primera ejecución");
+        dlg.setMessage("Necesitas añadir al menos un coche para poder usar la aplicación");
+        dlg.setPositiveButton("Nuevo coche", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                launchActivityNewCar();
+            }
+        });
+        dlg.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+            }
+        });
+        dlg.setCancelable(false);
+        dlg.show();
     }
 
     public void showAddDialog(){

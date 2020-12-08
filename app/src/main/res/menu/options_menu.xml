@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/estadisticas"
-        android:title="Ver estadísticas" />
-    <item android:id="@+id/detalles_coche"
-        android:title="Detalles del coche" />
-</menu>
