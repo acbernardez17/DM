@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.aad.esei.uvigo.R;
 import com.aad.esei.uvigo.core.Categoria_Gasto;
 import com.aad.esei.uvigo.core.CocheDAO;
 import com.aad.esei.uvigo.core.DBManager;
+import com.aad.esei.uvigo.core.GastoDAO;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -30,56 +32,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private final int ADD_CAR_CODE = 101;
     private final int EDIT_CAR_CODE = 102;
+    private final int ADD_EXPENSE = 201;
 
     private ListView listView;
     private int categNew;
-
-    private String[] tipoGastos= {
-            "",
-            "Reabastecimiento",
-            "Taller",
-            "Taller",
-            "Reabastecimiento",
-            "Reabastecimiento",
-            ""
-    };
-    private String[] FechaGastos= {
-            "",
-            "10-11-2020",
-            "15-11-2020",
-            "20-11-2020",
-            "20-11-2020",
-            "28-11-2020",
-            ""
-    };
-    private String[] KmGastos= {
-            "",
-            "200.000 km",
-            "200.100 km",
-            "200.150 km",
-            "200.200 km",
-            "200.250 km",
-            ""
-    };
-    private String[] CantidadGastos= {
-            "",
-            "50,00€",
-            "100,00€",
-            "80,00€",
-            "45,00€",
-            "60,00€",
-            ""
-    };
-    private Integer[] idIcono = {
-            0,
-            R.drawable.gasol_svg,
-            R.drawable.taller_svg,
-            R.drawable.taller_svg,
-            R.drawable.gasol_svg,
-            R.drawable.gasol_svg,
-            0
-
-    };
+    private ElementCursorAdapter elementCursorAdapter;
+    private GastoDAO gastoDAO;
 
     private DBManager manager;
     private ArrayList<String> perfiles;
@@ -91,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
         this.manager = DBManager.getManager(this.getApplicationContext());
         setContentView(R.layout.main_layout);
 
-        ListView listView = (ListView)findViewById(R.id.list_icons);
-        CustomList list =  new CustomList(this,tipoGastos, FechaGastos, KmGastos, CantidadGastos, idIcono);
-        listView.setAdapter(list);
-
         FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fbtn_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
         this.updateSpinnerPerfiles();
         this.setSpinnerSelection(0);
+
+        ListView listView = (ListView)findViewById(R.id.list_icons);
+
+        this.gastoDAO = new GastoDAO(manager);
+        this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
+        listView.setAdapter(elementCursorAdapter);
     }
 
     private void setupPerfilSelector() {
@@ -176,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
             this.updateSpinnerPerfiles();
 
         } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
+        }else if(resultCode == RESULT_OK && requestCode == ADD_EXPENSE){
+            this.updateCursorList();
         }
     }
 
@@ -240,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         dlg.show();
     }
 
-    public void showAddDialog(){
+    private void showAddDialog(){
         AlertDialog.Builder dlg = new AlertDialog.Builder( this );
         this.categNew = 0;
 
@@ -260,10 +222,10 @@ public class MainActivity extends AppCompatActivity {
         dlg.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.startActivity(
+                MainActivity.this.startActivityForResult(
                         new Intent(MainActivity.this, AddExpenseActivity.class)
                                 .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
-                                .putExtra("pk", getSpinnerSelection()))
+                                .putExtra("pk", getSpinnerSelection()),ADD_EXPENSE);
                                 ;
             }
         });
@@ -271,4 +233,10 @@ public class MainActivity extends AppCompatActivity {
 
         dlg.create().show();
     }
+
+    private void updateCursorList(){
+        Cursor cursor = this.gastoDAO.getAllGastosCoche(getSpinnerSelection());
+        this.elementCursorAdapter.changeCursor(cursor);
+    }
+
 }

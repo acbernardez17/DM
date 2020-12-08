@@ -24,12 +24,13 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:textSize="20dp"
                     android:id="@+id/lbl_tipo_gasto"
                     android:text="Reabastecimiento"/>
             </LinearLayout>
@@ -42,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:id="@+id/lbl_fecha_gasto"
+                    android:textSize="15dp"
                     android:text="Lunes, 23"
                     android:layout_alignParentStart="true"/>
 
@@ -51,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="30dp"
+                    android:textSize="15dp"
                     android:text="50,00€" />
             </RelativeLayout>
 
@@ -65,8 +68,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lbl_km_gasto"
-                    android:text="200.000 km"/>
+                    android:id="@+id/lbl_titulo_gasto"
+                    android:textSize="18dp"
+                    android:text="Titulo"/>
             </LinearLayout>
         </LinearLayout>
 

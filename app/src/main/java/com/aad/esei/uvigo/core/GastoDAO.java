@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +35,24 @@ public class GastoDAO {
         }
 
         return primaryKey;
+    }
+
+    public void insert( ContentValues valores) {
+        String primaryKey = null;
+
+
+        try {
+            db.beginTransaction();
+            db.insert(DBManager.GASTO_TABLE, null, valores);
+            db.setTransactionSuccessful();
+
+
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+
     }
 
     public String update(String id, ContentValues valores) {
@@ -77,6 +96,17 @@ public class GastoDAO {
                 + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?" +
                 " AND " + DBManager.GASTO_FECHA + " = ?"
                 , new String[]{pk,fechaSQL});
+    }
+
+    public Cursor getAllGastosCoche(String pk){
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
+                        + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
+                , new String[]{pk});
+        Log.i("aaa",pk);
+        Log.i("aaa",Integer.toString(cursor.getCount()));
+        return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
+                        + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
+                , new String[]{pk});
     }
 
 

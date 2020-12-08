@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Coche {
     public enum TIPO_COMB {GASOLINA,DIESEL}
@@ -48,7 +49,7 @@ public class Coche {
     //Gastos en lo que va de anho
     public double gastosAnho() throws ParseException {
         double toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ROOT);
         Date fecha;
         int year = Calendar.getInstance().get(Calendar.YEAR);
         Calendar cal = Calendar.getInstance();
@@ -65,7 +66,7 @@ public class Coche {
     //Gastos en el ultimo año
     public double gastosUltimoAnho() throws ParseException {
         double toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
         Date fecha;
         Calendar yearAgo = Calendar.getInstance();
         yearAgo.add(Calendar.YEAR,-1);
@@ -93,7 +94,7 @@ public class Coche {
     //Gastos en lo que va de mes de combustible
     public double gastoCombusMes() throws ParseException {
         double toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ROOT);
         Date fecha;
         int month = Calendar.getInstance().get(Calendar.MONTH);
         Calendar cal = Calendar.getInstance();
@@ -112,7 +113,7 @@ public class Coche {
     //Gastos en los ultimos 30 dias de combustible
     public double gastoCombus30Dias() throws ParseException {
         double toret = 0;
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ROOT);
         Date fecha;
         Calendar monthAgo = Calendar.getInstance();
         monthAgo.add(Calendar.DATE,-30);
