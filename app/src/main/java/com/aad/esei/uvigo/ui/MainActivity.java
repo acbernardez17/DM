@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private final int EDIT_CAR_CODE = 102;
     private final int ADD_EXPENSE = 201;
 
-    private ListView listView;
     private int categNew;
     private ElementCursorAdapter elementCursorAdapter;
     private GastoDAO gastoDAO;
+    private CocheDAO cocheDAO;
 
     private DBManager manager;
     private ArrayList<String> perfiles;
@@ -57,14 +57,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        this.cocheDAO = new CocheDAO(this.manager);
+        this.gastoDAO = new GastoDAO(manager);
+
         this.updateSpinnerPerfiles();
         this.setSpinnerSelection(0);
 
         ListView listView = (ListView)findViewById(R.id.list_icons);
-
-        this.gastoDAO = new GastoDAO(manager);
         this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
         listView.setAdapter(elementCursorAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.updateSpinnerPerfiles();
+        this.updateCursorList();
     }
 
     private void setupPerfilSelector() {
@@ -78,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedPerfil = perfiles.get(position);
-                // -------> Llamar aquí a la función que actualiza el ListView de gastos !!!!! <-------
+                MainActivity.this.updateCursorList();
             }
         });
     }
 
     private void updateSpinnerPerfiles() {
-        Cursor cursorCoches = new CocheDAO(this.manager).getAllCoches();
+        Cursor cursorCoches = cocheDAO.getAllCoches();
         this.perfiles = new ArrayList<>();
         if (cursorCoches.moveToFirst()) {
             do {
@@ -101,10 +109,6 @@ public class MainActivity extends AppCompatActivity {
         return selectedPerfil;
     }
 
-    private void setSpinnerSelection() {
-        this.setSpinnerSelection(perfiles.size() - 1);
-    }
-
     private void setSpinnerSelection(int pos) {
         if (perfiles.size() > pos) {
             AutoCompleteTextView spinnerCombustibleText = this.findViewById(R.id.sp_perfil);
@@ -113,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
             spinnerCombustibleText.setText(text);
             this.selectedPerfil = text;
             this.setupPerfilSelector();
+        } else {
+            this.selectedPerfil = "";
         }
     }
 
@@ -125,10 +131,11 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Nuevo coche añadido con PK: " + pk, Toast.LENGTH_LONG).show();
             this.updateSpinnerPerfiles();
-            this.setSpinnerSelection();
+            this.setSpinnerSelection(perfiles.size() - 1);
+            this.updateCursorList();
 
         } else if (resultCode == RESULT_CANCELED && requestCode == ADD_CAR_CODE) {
-            if (new CocheDAO(this.manager).getCochesCount() == 0) {
+            if (cocheDAO.getCochesCount() == 0) {
                 this.showFirstTimeDialog();
             }
 
@@ -136,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
             this.updateSpinnerPerfiles();
 
         } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
-        }else if(resultCode == RESULT_OK && requestCode == ADD_EXPENSE){
+            // Nada
+
+        } else if(resultCode == RESULT_OK && requestCode == ADD_EXPENSE){
             this.updateCursorList();
         }
     }

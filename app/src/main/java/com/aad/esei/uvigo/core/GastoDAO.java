@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -93,8 +92,9 @@ public class GastoDAO {
         isoDateFormat.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
         String fechaSQL = isoDateFormat.format( fecha );
         return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
-                + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?" +
-                " AND " + DBManager.GASTO_FECHA + " = ?"
+                + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
+                + " AND " + DBManager.GASTO_FECHA + " = ?"
+                + " ORDER BY " + DBManager.GASTO_FECHA + " DESC"
                 , new String[]{pk,fechaSQL});
     }
 
@@ -102,10 +102,9 @@ public class GastoDAO {
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
                         + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
                 , new String[]{pk});
-        Log.i("aaa",pk);
-        Log.i("aaa",Integer.toString(cursor.getCount()));
         return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
                         + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
+                        + " ORDER BY " + DBManager.GASTO_FECHA + " DESC"
                 , new String[]{pk});
     }
 
