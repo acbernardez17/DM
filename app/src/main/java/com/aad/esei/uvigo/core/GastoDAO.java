@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,20 +88,23 @@ public class GastoDAO {
         }
     }
 
-    public Cursor getAllGastosCoche(String pk, Date fecha){
+    public Cursor getAllGastosCoche(String pk, Date fechaInicio, Date fechaFin){
         SimpleDateFormat isoDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss", Locale.ROOT );
         isoDateFormat.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
-        String fechaSQL = isoDateFormat.format( fecha );
+        String stringFechaInicio = isoDateFormat.format( fechaInicio );
+        String stringFechaFin = isoDateFormat.format( fechaFin );
+
         return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
                 + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
-                + " AND " + DBManager.GASTO_FECHA + " = ?"
-                + " ORDER BY " + DBManager.GASTO_FECHA + " DESC"
-                , new String[]{pk,fechaSQL});
+                + " AND " + DBManager.GASTO_FECHA + " >= ? "
+                +  "AND " + DBManager.GASTO_FECHA + " < ?"
+                , new String[]{pk, stringFechaInicio, stringFechaFin});
     }
 
     public Cursor getAllGastosCoche(String pk){
         return db.rawQuery("SELECT * FROM " + DBManager.GASTO_TABLE
                         + " WHERE " + DBManager.GASTO_ID_COCHE + " = ?"
+                        + " ORDER BY " + DBManager.GASTO_FECHA + " DESC"
                 , new String[]{pk});
     }
 

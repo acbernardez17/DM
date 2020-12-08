@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private final int ADD_CAR_CODE = 101;
     private final int EDIT_CAR_CODE = 102;
     private final int ADD_EXPENSE = 201;
+    private final int EDIT_EXPENSE = 202;
 
     private int categNew;
     private ElementCursorAdapter elementCursorAdapter;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateExpense(int id, String categoria){
         AlertDialog.Builder dlg = new AlertDialog.Builder( this );
-        this.categNew = 0;
+        this.categNew = Categoria_Gasto.getByCode(categoria).ordinal();
 
         dlg.setTitle( "Selecciona tipo de gasto:" );
 
@@ -126,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivityForResult(
                         new Intent(MainActivity.this, AddExpenseActivity.class)
                                 .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
-                                .putExtra("pk_gasto",id)
-                                .putExtra("pk", getSpinnerSelection()),ADD_EXPENSE);
+                                .putExtra("pk_gasto", id)
+                                .putExtra("pk", getSpinnerSelection()), EDIT_EXPENSE);
                 ;
             }
         });
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
             // Nada
 
-        } else if(resultCode == RESULT_OK && requestCode == ADD_EXPENSE){
+        } else if(resultCode == RESULT_OK && (requestCode == ADD_EXPENSE || requestCode == EDIT_EXPENSE)){
             this.updateCursorList();
         }
     }

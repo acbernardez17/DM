@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aad.esei.uvigo.R;
+import com.aad.esei.uvigo.core.Categoria_Gasto;
 import com.aad.esei.uvigo.core.DBManager;
 import com.aad.esei.uvigo.core.GastoDAO;
 import com.anychart.AnyChart;
@@ -25,6 +26,7 @@ import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,14 +38,19 @@ import java.util.Random;
 
 
 public class StatisticsActivity extends Activity implements DatePickerListener {
+
+    private DateTime dateSelected;
+    private Map<String,TextView> mapTextViewPorCateg;
+
     private String id_coche;
-    private List<DataEntry> data;
     private Pie pie;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.statistical_layout);
 
+        mapTextViewPorCateg = this.initTextViewMap();
         id_coche = (String) StatisticsActivity.this.getIntent().getExtras().get("coche");
         pie = AnyChart.pie();
 
@@ -53,104 +60,51 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
         anyChartView.setChart(pie);
     }
 
-    private void setCategoriesValues(String coche, Date fecha) {
-        GastoDAO gastodao = new GastoDAO(DBManager.getManager(this.getApplicationContext()));
-        /*try {
-            ContentValues valores = new ContentValues();
-            SimpleDateFormat isoDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss", Locale.ROOT );
-            isoDateFormat.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
-            String fechaSQL = isoDateFormat.format( fecha );
-            valores.put(DBManager.GASTO_ID, "2");
-            valores.put(DBManager.GASTO_CATEGORIA, "ST");
-            valores.put(DBManager.GASTO_FECHA, fechaSQL);
-            valores.put(DBManager.GASTO_ID_COCHE, "5004FKF");
-            valores.put(DBManager.GASTO_PRECIO, "19.23");
-            valores.put(DBManager.GASTO_TITULO, "SerVSsada");
-            gastodao.insert("2", valores);
-        }catch (Exception e) {
-            Toast.makeText(this, "Falla en el insertar ", Toast.LENGTH_LONG ).show();
-        }*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //this.onDateSelected(this.dateSelected);
+    }
 
+    //Datepicker Menu
+    @Override
+    public void onDateSelected(@NonNull final DateTime dateSelected) {
+        this.setDataClean(this.mapTextViewPorCateg);
+        this.setCategoriesValues(this.id_coche, dateSelected.toDate(), dateSelected.plusDays(1).toDate());
+        this.dateSelected = dateSelected;
+    }
 
-        Cursor cursor = gastodao.getAllGastosCoche(coche, fecha);
-        Map<String,TextView> map = new LinkedHashMap<>();
-        map.put("ITV" , this.findViewById(R.id.lbl_itv));
-        map.put("MOD" ,this.findViewById(R.id.lbl_modificaciones));
-        map.put("IR" ,this.findViewById(R.id.lbl_impuestos_rodaje));
-        map.put("ST" ,this.findViewById(R.id.lbl_servicio_tecnico));
-        map.put("LV" ,this.findViewById(R.id.lbl_lavados));
-        map.put("SEG" ,this.findViewById(R.id.lbl_seguro));
-        map.put("MT" ,this.findViewById(R.id.lbl_mantenimiento));
-        map.put("PK" ,this.findViewById(R.id.lbl_parking));
-        map.put("PJ" ,this.findViewById(R.id.lbl_peajes));
-        map.put("OTRO" ,this.findViewById(R.id.lbl_otros));
-        map.put("MUL" ,this.findViewById(R.id.lbl_multas));
-        map.put("REP" ,this.findViewById(R.id.lbl_repostaje));
-        data = new ArrayList<>();
+    private void setCategoriesValues(String coche, Date fechaInicio, Date fechaFin) {
+        GastoDAO gastoDAO = new GastoDAO(DBManager.getManager(this.getApplicationContext()));
+        Cursor cursor = gastoDAO.getAllGastosCoche(coche, fechaInicio, fechaFin);
+
+        Map<String,Double> mapSumaTotalPorCateg = new LinkedHashMap<>();
+        List<DataEntry> data = new ArrayList<>();
         if (cursor.moveToFirst()) {
-            Log.d("a-----------------", "hay datos");
             do {
                 String cat = (String) cursor.getString(cursor.getColumnIndex("categoria"));
                 Double gasto = (Double) cursor.getDouble(cursor.getColumnIndex("precio"));
 
-                switch (cat) {
-                    case "REP" :
-                        map.get("REP").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Repostaje", gasto));
-                        break;
-                    case "MUL":
-                        map.get("MUL").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Multas", gasto));
-                        break;
-                    case "PJ" :
-                        map.get("PJ").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Peajes", gasto));
-                        break;
-                    case "PK":
-                        map.get("PK").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Parking", gasto));
-                        break;
-                    case "MT" :
-                        map.get("MT").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Mantenimiento", gasto));
-                        break;
-                    case "SEG":
-                        map.get("SEG").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Seguro", gasto));
-                        break;
-                    case "LV" :
-                        map.get("LV").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Lavados", gasto));
-                        break;
-                    case "ST":
-                        map.get("ST").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Servicio Técnico", gasto));
-                        break;
-                    case "MOD" :
-                        map.get("MOD").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Modificaciones", gasto));
-                        break;
-                    case "IR":
-                        map.get("IR").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Impuestos Rodaje", gasto));
-                        break;
-                    case "ITV" :
-                        map.get("ITV").setText(gasto.toString());
-                        data.add(new ValueDataEntry("ITV", gasto));
-                        break;
-                    default:
-                        map.get("OTRO").setText(gasto.toString());
-                        data.add(new ValueDataEntry("Otros", gasto));
-                        break;
+                if (mapSumaTotalPorCateg.containsKey(cat)) {
+                    mapSumaTotalPorCateg.put(cat, mapSumaTotalPorCateg.get(cat) + gasto);
+                } else {
+                    mapSumaTotalPorCateg.put(cat, gasto);
                 }
+
             } while (cursor.moveToNext());
-        }else {
-            data.add(new ValueDataEntry("SIN GASTOS", 1));
+
+            for (String cat : mapSumaTotalPorCateg.keySet()) {
+                mapTextViewPorCateg.get(cat).setText(mapSumaTotalPorCateg.get(cat).toString());
+                data.add(new ValueDataEntry(Categoria_Gasto.valueOf(cat).getCategoria(), mapSumaTotalPorCateg.get(cat)));
+            }
+
+        } else {
+            data.add(new ValueDataEntry("SIN GASTOS", 0));
         }
+
         pie.data(data);
         cursor.close();
     }
-
 
     private void setDatePicker() {
         HorizontalPicker picker = (HorizontalPicker) findViewById(R.id.datePicker);
@@ -169,30 +123,27 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
         picker.setDate(new DateTime());
     }
 
-    //Datepicker Menu
-    @Override
-    public void onDateSelected(@NonNull final DateTime dateSelected) {
-        setDataClean();
-        this.setCategoriesValues(this.id_coche, dateSelected.toDate());
-    }
-
-    private void setDataClean() {
-        Map<String,TextView> map = new LinkedHashMap<>();
-        map.put("ITV" , this.findViewById(R.id.lbl_itv));
-        map.put("MOD" ,this.findViewById(R.id.lbl_modificaciones));
-        map.put("IR" ,this.findViewById(R.id.lbl_impuestos_rodaje));
-        map.put("ST" ,this.findViewById(R.id.lbl_servicio_tecnico));
-        map.put("LV" ,this.findViewById(R.id.lbl_lavados));
-        map.put("SEG" ,this.findViewById(R.id.lbl_seguro));
-        map.put("MT" ,this.findViewById(R.id.lbl_mantenimiento));
-        map.put("PK" ,this.findViewById(R.id.lbl_parking));
-        map.put("PJ" ,this.findViewById(R.id.lbl_peajes));
-        map.put("OTRO" ,this.findViewById(R.id.lbl_otros));
-        map.put("MUL" ,this.findViewById(R.id.lbl_multas));
-        map.put("REP" ,this.findViewById(R.id.lbl_repostaje));
-
+    private void setDataClean(Map<String, TextView> map) {
         for(TextView t : map.values()) {
             t.setText("0");
         }
+    }
+
+    private Map<String, TextView> initTextViewMap() {
+        Map<String, TextView> map = new LinkedHashMap<>();
+        map.put(Categoria_Gasto.ITV.getCodigo(), this.findViewById(R.id.lbl_itv));
+        map.put(Categoria_Gasto.MOD.getCodigo(), this.findViewById(R.id.lbl_modificaciones));
+        map.put(Categoria_Gasto.IR.getCodigo(), this.findViewById(R.id.lbl_impuestos_rodaje));
+        map.put(Categoria_Gasto.ST.getCodigo(), this.findViewById(R.id.lbl_servicio_tecnico));
+        map.put(Categoria_Gasto.LV.getCodigo(), this.findViewById(R.id.lbl_lavados));
+        map.put(Categoria_Gasto.SEG.getCodigo(), this.findViewById(R.id.lbl_seguro));
+        map.put(Categoria_Gasto.MT.getCodigo(), this.findViewById(R.id.lbl_mantenimiento));
+        map.put(Categoria_Gasto.PK.getCodigo(), this.findViewById(R.id.lbl_parking));
+        map.put(Categoria_Gasto.PJ.getCodigo(), this.findViewById(R.id.lbl_peajes));
+        map.put(Categoria_Gasto.OTRO.getCodigo(), this.findViewById(R.id.lbl_otros));
+        map.put(Categoria_Gasto.MUL.getCodigo(), this.findViewById(R.id.lbl_multas));
+        map.put(Categoria_Gasto.REP.getCodigo(), this.findViewById(R.id.lbl_repostaje));
+
+        return map;
     }
 }

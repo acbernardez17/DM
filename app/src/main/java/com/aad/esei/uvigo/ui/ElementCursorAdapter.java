@@ -49,22 +49,24 @@ public class ElementCursorAdapter extends CursorAdapter {
         String titulo = cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_TITULO));
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+        formatter.setTimeZone(TimeZone.getTimeZone( "UTC" ));
         Date date;
         try {
             date = formatter.parse(fecha);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
+
             int year = Calendar.getInstance().get(Calendar.YEAR);
             Calendar weekAgo = Calendar.getInstance();
             weekAgo.add(Calendar.DATE,-7);
             if (cal.after(weekAgo)){ //Hace menos de una semana
                 formatter = new SimpleDateFormat("E, d MMMM");
-                formatter.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
             }else if (cal.get(Calendar.YEAR)==year ){ //En el año actual
-                formatter = new SimpleDateFormat("MMMM, d");
+                formatter = new SimpleDateFormat("E, d MMMM");
             }else{//Años pasados
-                formatter = new SimpleDateFormat("dd-MM-yyyy");
+                formatter = new SimpleDateFormat("dd-MMM-yyyy");
             }
+            formatter.setTimeZone( TimeZone.getDefault() );
             fecha = formatter.format(date);
 
         } catch (ParseException e) {

@@ -54,10 +54,10 @@ public class AddExpenseActivity extends AppCompatActivity {
         }
 
         if ( !"".equals(pk_gasto) ) {
-            tipoCateg.setText("Editar Gasto "+categoria.getCategoria());
+            tipoCateg.setText("Editar Gasto "+ categoria.getCategoria());
             this.fillExpenseData();
         } else{
-            tipoCateg.setText("Añadir Gasto "+categoria.getCategoria());
+            tipoCateg.setText("Añadir Gasto "+ categoria.getCategoria());
         }
 
 
@@ -133,13 +133,10 @@ public class AddExpenseActivity extends AppCompatActivity {
         valores.put(DBManager.GASTO_TITULO,titulo.getText().toString());
         valores.put(DBManager.GASTO_PRECIO,precio.getText().toString());
         valores.put(DBManager.GASTO_ID_COCHE,this.pk);
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
+
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        valores.put(DBManager.GASTO_FECHA,formatter.format(cal.getTime()));
+        valores.put(DBManager.GASTO_FECHA, formatter.format(Calendar.getInstance().getTime()));
 
         GastoDAO gastoDAO = new GastoDAO(DBManager.getManager(this.getApplicationContext()));
         gastoDAO.insert(valores);

@@ -12,7 +12,7 @@ public enum Categoria_Gasto {
     MOD("Modificaciones"),
     SEG("Seguro"),
     ITV("ITV"),
-    OTRO("OTRO");
+    OTRO("Otro");
 
     private final String codigo;
     private final String categoria;
