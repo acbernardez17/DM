@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
@@ -41,13 +42,13 @@
                     android:id="@+id/lbl_repostaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
@@ -65,7 +66,7 @@
                 android:maxLines="1"
                 android:text="Servicio Técnico"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -78,13 +79,13 @@
                     android:id="@+id/lbl_servicio_tecnico"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
@@ -100,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:text="ITV"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -113,13 +114,13 @@
                     android:id="@+id/lbl_itv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
 
@@ -140,7 +141,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="Peajes"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -158,13 +159,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:text="0"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="€"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
 
@@ -194,7 +195,7 @@
                     android:text="Multas"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -207,13 +208,13 @@
                         android:id="@+id/lbl_multas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="€"/>
                 </LinearLayout>
             </LinearLayout>
@@ -232,7 +233,7 @@
                     android:text="Seguro"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -245,13 +246,13 @@
                         android:id="@+id/lbl_seguro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="€"/>
                 </LinearLayout>
             </LinearLayout>
@@ -266,6 +267,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:text="OVERALL"/>
             <com.anychart.AnyChartView
                 android:id="@+id/graphCustom"
@@ -294,7 +296,7 @@
                     android:text="Mantenimiento"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -307,13 +309,13 @@
                         android:id="@+id/lbl_mantenimiento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="€"/>
                 </LinearLayout>
             </LinearLayout>
@@ -332,7 +334,7 @@
                     android:text="Lavados"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -345,13 +347,13 @@
                         android:id="@+id/lbl_lavados"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:text="€"/>
                 </LinearLayout>
 
@@ -378,7 +380,7 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -391,13 +393,13 @@
                     android:id="@+id/lbl_modificaciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
@@ -414,8 +416,9 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Impuestos"
+                android:gravity="center"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -428,13 +431,13 @@
                     android:id="@+id/lbl_impuestos_rodaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
@@ -453,7 +456,7 @@
                 android:text="Parking"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -466,13 +469,13 @@
                     android:id="@+id/lbl_parking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
@@ -488,7 +491,8 @@
                 android:layout_height="wrap_content"
                 android:text="Otros"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -501,13 +505,13 @@
                     android:id="@+id/lbl_otros"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:text="€"/>
             </LinearLayout>
         </LinearLayout>
