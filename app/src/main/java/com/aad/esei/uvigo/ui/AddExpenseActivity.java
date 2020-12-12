@@ -38,26 +38,26 @@ public class AddExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.add_expen_layout);
 
 
-        categoria = (Categoria_Gasto) AddExpenseActivity.this.getIntent().getExtras().get("cat");
-        pk = (String) AddExpenseActivity.this.getIntent().getExtras().get("pk");
+        categoria = (Categoria_Gasto) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.cat));
+        pk = (String) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.pk));
 
 
         TextView tipoCateg = this.findViewById(R.id.lbl_tipo_categ);
 
 
         Bundle bundle = AddExpenseActivity.this.getIntent().getExtras();
-        if (bundle.containsKey("pk_gasto")){
-            int id_gasto = (Integer) AddExpenseActivity.this.getIntent().getExtras().get("pk_gasto");
+        if (bundle.containsKey(getString(R.string.pk_gasto))){
+            int id_gasto = (Integer) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.pk_gasto));
             pk_gasto = Integer.toString(id_gasto);
         }else{
             pk_gasto= "";
         }
 
         if ( !"".equals(pk_gasto) ) {
-            tipoCateg.setText("Editar Gasto "+ categoria.getCategoria());
+            tipoCateg.setText(getString(R.string.edit_gasto)+ categoria.getCategoria());
             this.fillExpenseData();
         } else{
-            tipoCateg.setText("Añadir Gasto "+ categoria.getCategoria());
+            tipoCateg.setText(getString(R.string.add_gasto)+ categoria.getCategoria());
         }
 
 
@@ -77,7 +77,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(AddExpenseActivity.this, "Informacion inválida", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddExpenseActivity.this, getString(R.string.info_valida), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -134,8 +134,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         valores.put(DBManager.GASTO_PRECIO,precio.getText().toString());
         valores.put(DBManager.GASTO_ID_COCHE,this.pk);
 
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat formatter=new SimpleDateFormat(getString(R.string.pattern), Locale.ROOT);
+        formatter.setTimeZone(TimeZone.getTimeZone(getString(R.string.utc)));
         valores.put(DBManager.GASTO_FECHA, formatter.format(Calendar.getInstance().getTime()));
 
         GastoDAO gastoDAO = new GastoDAO(DBManager.getManager(this.getApplicationContext()));

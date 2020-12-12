@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                final CharSequence[] option = { "Editar", "Borrar", "Cancelar" };
+                final CharSequence[] option = { getString(R.string.edit), getString(R.string.borrar), getString(R.string.cancel) };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Seleccione una opcion");
+                builder.setTitle(R.string.sel_opt);
                 builder.setItems(option, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
                         //Obtenemos el cursor asociado al Adapter de la lista
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder dlg = new AlertDialog.Builder( this );
         this.categNew = Categoria_Gasto.getByCode(categoria).ordinal();
 
-        dlg.setTitle( "Selecciona tipo de gasto:" );
+        dlg.setTitle( getString(R.string.sel_tipo_gasto) );
 
         dlg.setSingleChoiceItems(
                 //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        dlg.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+        dlg.setPositiveButton(getString(R.string.siguiente), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.startActivityForResult(
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 ;
             }
         });
-        dlg.setNegativeButton("Cancelar", null);
+        dlg.setNegativeButton(getString(R.string.cancel), null);
 
         dlg.create().show();
     }
@@ -140,16 +140,16 @@ public class MainActivity extends AppCompatActivity {
     private void verifyDelete(int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-        builder.setTitle("Borrar");
-        builder.setMessage("¿Quieres borrar el gasto?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.borrar));
+        builder.setMessage(getString(R.string.preg_borrar_gasto));
+        builder.setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int i) {
                 gastoDAO.delete(Integer.toString(id));
                 MainActivity.this.updateCursorList();
             }
         });
 
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int ii) {
                         dialog.dismiss();
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == ADD_CAR_CODE) {
             String pk = data.getExtras().getString("pk");
 
-            Toast.makeText(this, "Nuevo coche añadido con PK: " + pk, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.nuevo_coche_toast) + pk, Toast.LENGTH_LONG).show();
             this.updateSpinnerPerfiles();
             this.setSpinnerSelection(perfiles.size() - 1);
             this.updateCursorList();
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.estadisticas:
                 this.startActivity(new Intent(this, StatisticsActivity.class)
-                        .putExtra("coche", getSpinnerSelection() ));
+                        .putExtra(getString(R.string.car), getSpinnerSelection() ));
                 toret = true;
                 break;
 
@@ -284,15 +284,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFirstTimeDialog() {
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-        dlg.setTitle("Primera ejecución");
-        dlg.setMessage("Necesitas añadir al menos un coche para poder usar la aplicación");
-        dlg.setPositiveButton("Nuevo coche", new DialogInterface.OnClickListener() {
+        dlg.setTitle(getString(R.string.primera_eje));
+        dlg.setMessage(getString(R.string.need_add));
+        dlg.setPositiveButton(getString(R.string.new_coche), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 launchActivityNewCar();
             }
         });
-        dlg.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+        dlg.setNegativeButton(getString(R.string.salir), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.finish();
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder dlg = new AlertDialog.Builder( this );
         this.categNew = 0;
 
-        dlg.setTitle( "Selecciona tipo de gasto:" );
+        dlg.setTitle( getString(R.string.sel_tipo_gasto));
 
         dlg.setSingleChoiceItems(
                 //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        dlg.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+        dlg.setPositiveButton(getString(R.string.siguiente), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.startActivityForResult(
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                                 ;
             }
         });
-        dlg.setNegativeButton("Cancelar", null);
+        dlg.setNegativeButton(getString(R.string.cancel), null);
 
         dlg.create().show();
     }

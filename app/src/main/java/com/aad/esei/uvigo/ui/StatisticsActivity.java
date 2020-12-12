@@ -51,7 +51,7 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
         this.setContentView(R.layout.statistical_layout);
 
         mapTextViewPorCateg = this.initTextViewMap();
-        id_coche = (String) StatisticsActivity.this.getIntent().getExtras().get("coche");
+        id_coche = (String) StatisticsActivity.this.getIntent().getExtras().get(getString(R.string.car));
         pie = AnyChart.pie();
 
         setDatePicker();
@@ -82,8 +82,8 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
         List<DataEntry> data = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                String cat = (String) cursor.getString(cursor.getColumnIndex("categoria"));
-                Double gasto = (Double) cursor.getDouble(cursor.getColumnIndex("precio"));
+                String cat = (String) cursor.getString(cursor.getColumnIndex(getString(R.string.cat)));
+                Double gasto = (Double) cursor.getDouble(cursor.getColumnIndex(getString(R.string.precio_solo)));
 
                 if (mapSumaTotalPorCateg.containsKey(cat)) {
                     mapSumaTotalPorCateg.put(cat, mapSumaTotalPorCateg.get(cat) + gasto);
@@ -99,7 +99,7 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
             }
 
         } else {
-            data.add(new ValueDataEntry("SIN GASTOS", 0));
+            data.add(new ValueDataEntry(getString(R.string.singastos), 0));
         }
 
         pie.data(data);

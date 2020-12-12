@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Repostajes"
+                android:text="@string/repostajes"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:gravity="center"
@@ -43,13 +43,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
         <!-- Col 2/ Fila1 -->
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Servicio Técnico"
+                android:text="@string/servicio_t_cnico"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
@@ -80,13 +80,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
         <!-- Col 3/ Fila1 -->
@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ITV"
+                android:text="@string/itv"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             <ImageView
@@ -115,13 +115,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -140,7 +140,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="Peajes"
+                android:text="@string/peajes"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
@@ -158,13 +158,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="€"
+                    android:text="@string/euro"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
@@ -192,7 +192,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Multas"
+                    android:text="@string/multas"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -209,14 +209,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="€"/>
-                </LinearLayout>
+                        android:text="@string/euro"/><![CDATA[
+                ]]></LinearLayout>
             </LinearLayout>
             <!-- Fila2/ Col1/ Fila2-->
             <LinearLayout
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Seguro"
+                    android:text="@string/seguro"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -247,13 +247,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="€"/>
+                        android:text="@string/euro"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -268,7 +268,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="OVERALL"/>
+                android:text="@string/overall"/>
             <com.anychart.AnyChartView
                 android:id="@+id/graphCustom"
                 android:layout_width="match_parent"
@@ -293,7 +293,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Mantenimiento"
+                    android:text="@string/mantenimiento"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -310,13 +310,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="€"/>
+                        android:text="@string/euro"/>
                 </LinearLayout>
             </LinearLayout>
             <!-- Fila2/ Col3/ Fila2-->
@@ -331,7 +331,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Lavados"
+                    android:text="@string/lavados"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -348,13 +348,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:inputType="numberDecimal"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="€"/>
+                        android:text="@string/euro"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -376,7 +376,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Modificaciones"
+                android:text="@string/modificaciones"
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -394,13 +394,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
         <!-- Col 2/ Fila3 -->
@@ -415,7 +415,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Impuestos"
+                android:text="@string/impuestos"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -432,13 +432,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
         <!-- Col 3/ Fila3 -->
@@ -453,7 +453,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Parking"
+                android:text="@string/parking"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -470,13 +470,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
         <!-- Col 4/ Fila3 -->
@@ -489,7 +489,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Otros"
+                android:text="@string/otros"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
@@ -506,13 +506,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:inputType="numberDecimal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="€"/>
+                    android:text="@string/euro"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

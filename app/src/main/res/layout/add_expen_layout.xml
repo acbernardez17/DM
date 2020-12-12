@@ -26,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/titulo_gasto"
-            android:hint="Titulo"/>
+            android:hint="@string/titulo"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/precio_gasto"
             android:inputType="numberDecimal"
-            android:hint="Precio (€)"/>
+            android:hint="@string/precio"/>
     </LinearLayout>
 
 
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_guardar_gasto"
-            android:text="Guardar"
+            android:text="@string/guardar"
 
             android:layout_weight="1"
             />
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_back_gasto"
-            android:text="Cancelar"
+            android:text="@string/cancelar"
             android:layout_weight="1"/>
     </LinearLayout>
 

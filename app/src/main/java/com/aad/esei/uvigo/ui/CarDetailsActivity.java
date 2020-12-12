@@ -32,12 +32,12 @@ public class CarDetailsActivity extends AppCompatActivity {
 
         this.setupTipoCombustibleDropdown();
 
-        String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
+        String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get(getString(R.string.pk));
         if ( !"".equals(pk) ) {
-            actionBar.setTitle("Editar coche");
+            actionBar.setTitle(R.string.edit_car);
             this.fillCarData(pk);
         } else {
-            actionBar.setTitle("Nuevo coche");
+            actionBar.setTitle(R.string.new_coche);
         }
     }
 
@@ -121,7 +121,7 @@ public class CarDetailsActivity extends AppCompatActivity {
 
     private void saveCar() {
         if (this.validateInput()) {
-            String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
+            String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get(getString(R.string.pk));
             String primaryKey = "";
             if ("".equals(pk)) {
                 primaryKey = CarDetailsActivity.this.saveCarDetails();
@@ -130,7 +130,7 @@ public class CarDetailsActivity extends AppCompatActivity {
             }
 
             CarDetailsActivity.this.setResult(RESULT_OK, new Intent()
-                    .putExtra("pk", primaryKey));
+                    .putExtra(getString(R.string.pk), primaryKey));
 
             CarDetailsActivity.this.finish();
         }

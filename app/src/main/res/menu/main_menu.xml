@@ -5,14 +5,14 @@
     <item
         android:id="@+id/nuevo_coche"
         android:icon="@drawable/ic_add_new"
-        android:title="Nuevo coche"
+        android:title="@string/nuevo_coche"
         app:showAsAction="always" />
     <item
         android:id="@+id/estadisticas"
-        android:title="Ver estadísticas"
+        android:title="@string/ver_estad_sticas"
         app:showAsAction="never" />
     <item
         android:id="@+id/detalles_coche"
-        android:title="Detalles del coche"
+        android:title="@string/detalles_del_coche"
         app:showAsAction="never" />
 </menu>

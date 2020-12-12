@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -32,7 +33,8 @@
                     android:layout_marginStart="10dp"
                     android:textSize="20dp"
                     android:id="@+id/lbl_tipo_gasto"
-                    android:text="Reabastecimiento"/>
+                    android:text="@string/reabastecimiento"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -44,8 +46,9 @@
                     android:layout_marginStart="20dp"
                     android:id="@+id/lbl_fecha_gasto"
                     android:textSize="15dp"
-                    android:text="Lunes, 23"
-                    android:layout_alignParentStart="true"/>
+                    android:text="@string/lunes_23"
+                    android:layout_alignParentStart="true"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/lbl_cantidad_gasto"
@@ -54,7 +57,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="30dp"
                     android:textSize="15dp"
-                    android:text="50,00€" />
+                    android:text="@string/_50_00"
+                    tools:ignore="HardcodedText" />
             </RelativeLayout>
 
             <LinearLayout
@@ -70,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/lbl_titulo_gasto"
                     android:textSize="18dp"
-                    android:text="Titulo"/>
+                    android:text="@string/titulo"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
 
