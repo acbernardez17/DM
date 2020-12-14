@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -65,9 +66,10 @@ public class MainActivity extends AppCompatActivity {
         this.setSpinnerSelection(0);
 
         ListView listView = (ListView)findViewById(R.id.list_icons);
+        registerForContextMenu(listView);
         this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
         listView.setAdapter(elementCursorAdapter);
-
+        /*
         listView.setLongClickable( true );
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -100,8 +102,41 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
                 return true;
             }
-        });
+        });*/
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Cursor cursor;
+        int ID;
+        String category;
+        switch (item.getItemId()) {
+            case R.id.edit_OP:
+                cursor = (Cursor) this.elementCursorAdapter.getCursor();
+                cursor.moveToPosition(info.position);
+                ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
+                category =  cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_CATEGORIA));
+                updateExpense(ID,category);
+                return true;
+            case R.id.delete_op:
+                cursor = (Cursor) this.elementCursorAdapter.getCursor();
+                cursor.moveToPosition(info.position);
+                ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
+                verifyDelete(ID);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void updateExpense(int id, String categoria){

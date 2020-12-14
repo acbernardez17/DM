@@ -56,6 +56,6 @@
     <string name="need_add">Necesitas añadir al menos un coche para poder usar la aplicación</string>
     <string name="salir">Salir</string>
     <string name="singastos">¡SIN GASTOS!</string>
-    <string name="borrar">borrar</string>
+    <string name="borrar">Borrar</string>
     <string name="siguiente">siguiente</string>
 </resources>
