@@ -65,48 +65,30 @@ public class MainActivity extends AppCompatActivity {
         this.updateSpinnerPerfiles();
         this.setSpinnerSelection(0);
 
-        ListView listView = (ListView)findViewById(R.id.list_icons);
-        registerForContextMenu(listView);
-        this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
-        listView.setAdapter(elementCursorAdapter);
-        /*
-        listView.setLongClickable( true );
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                final CharSequence[] option = { getString(R.string.edit), getString(R.string.borrar), getString(R.string.cancel) };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle(R.string.sel_opt);
-                builder.setItems(option, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int i) {
-                        //Obtenemos el cursor asociado al Adapter de la lista
-                        Cursor cursor = (Cursor) parent.getItemAtPosition(position);
-                        //Obtener id del gasto
-                        int ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
-                        switch (i){
-                            case 0:
-                                String categoria = cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_CATEGORIA));
-                                updateExpense(ID,categoria);
-                                break;
-                            case 1:
-                                MainActivity.this.verifyDelete(ID);//Borrar gasto de DB
-                                break;
-                            default:Log.i("aaa", "Opcion "+i);
-                                break;
-                        }
-                        dialog.dismiss();
-
-                    }
-                }).show();
-                return true;
-            }
-        });*/
-
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        //this.manager = DBManager.getManager(this.getApplicationContext());
+
+        final ListView listView = (ListView)findViewById(R.id.list_icons);
+        registerForContextMenu(listView);
+        this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
+        listView.setAdapter(elementCursorAdapter);
+        this.updateCursorList();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        //this.manager.close();
+        this.elementCursorAdapter.getCursor().close();
+    }
+
+
+        @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -146,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         dlg.setTitle( getString(R.string.sel_tipo_gasto) );
 
         dlg.setSingleChoiceItems(
-                //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
                 Categoria_Gasto.arrayCategorias(),
                 Categoria_Gasto.getByCode(categoria).ordinal(),
                 new DialogInterface.OnClickListener() {
@@ -344,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
         dlg.setTitle( getString(R.string.sel_tipo_gasto));
 
         dlg.setSingleChoiceItems(
-                //new String[]{Categoria_Gasto.REP.toString(), "Otro"},
                 Categoria_Gasto.arrayCategorias(),
                 0,
                 new DialogInterface.OnClickListener() {
