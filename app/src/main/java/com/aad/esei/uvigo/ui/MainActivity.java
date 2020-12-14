@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.estadisticas:
                 this.startActivity(new Intent(this, StatisticsActivity.class)
-                        .putExtra(getString(R.string.car), getSpinnerSelection() ));
+                        .putExtra("coche", getSpinnerSelection() ));
                 toret = true;
                 break;
 

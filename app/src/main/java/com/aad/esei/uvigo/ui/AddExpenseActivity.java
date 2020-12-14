@@ -38,16 +38,16 @@ public class AddExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.add_expen_layout);
 
 
-        categoria = (Categoria_Gasto) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.cat));
-        pk = (String) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.pk));
+        categoria = (Categoria_Gasto) AddExpenseActivity.this.getIntent().getExtras().get("cat");
+        pk = (String) AddExpenseActivity.this.getIntent().getExtras().get("pk");
 
 
         TextView tipoCateg = this.findViewById(R.id.lbl_tipo_categ);
 
 
         Bundle bundle = AddExpenseActivity.this.getIntent().getExtras();
-        if (bundle.containsKey(getString(R.string.pk_gasto))){
-            int id_gasto = (Integer) AddExpenseActivity.this.getIntent().getExtras().get(getString(R.string.pk_gasto));
+        if (bundle.containsKey("pk_gasto")){
+            int id_gasto = (Integer) AddExpenseActivity.this.getIntent().getExtras().get("pk_gasto");
             pk_gasto = Integer.toString(id_gasto);
         }else{
             pk_gasto= "";
@@ -135,7 +135,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         valores.put(DBManager.GASTO_ID_COCHE,this.pk);
 
         SimpleDateFormat formatter=new SimpleDateFormat(getString(R.string.pattern), Locale.ROOT);
-        formatter.setTimeZone(TimeZone.getTimeZone(getString(R.string.utc)));
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         valores.put(DBManager.GASTO_FECHA, formatter.format(Calendar.getInstance().getTime()));
 
         GastoDAO gastoDAO = new GastoDAO(DBManager.getManager(this.getApplicationContext()));

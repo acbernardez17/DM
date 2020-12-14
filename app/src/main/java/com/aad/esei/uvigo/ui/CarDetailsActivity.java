@@ -121,7 +121,7 @@ public class CarDetailsActivity extends AppCompatActivity {
 
     private void saveCar() {
         if (this.validateInput()) {
-            String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get(getString(R.string.pk));
+            String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
             String primaryKey = "";
             if ("".equals(pk)) {
                 primaryKey = CarDetailsActivity.this.saveCarDetails();
@@ -130,7 +130,7 @@ public class CarDetailsActivity extends AppCompatActivity {
             }
 
             CarDetailsActivity.this.setResult(RESULT_OK, new Intent()
-                    .putExtra(getString(R.string.pk), primaryKey));
+                    .putExtra("pk", primaryKey));
 
             CarDetailsActivity.this.finish();
         }
