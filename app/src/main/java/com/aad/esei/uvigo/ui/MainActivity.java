@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        //this.manager = DBManager.getManager(this.getApplicationContext());
+        this.manager = DBManager.getManager(this.getApplicationContext());
 
         final ListView listView = (ListView)findViewById(R.id.list_icons);
         registerForContextMenu(listView);
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause()
     {
         super.onPause();
-        //this.manager.close();
+        this.manager.close();
         this.elementCursorAdapter.getCursor().close();
     }
 
@@ -173,13 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         builder.show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.updateSpinnerPerfiles();
-        this.updateCursorList();
     }
 
     private void setupPerfilSelector() {
