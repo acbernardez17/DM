@@ -95,8 +95,22 @@ public class AddExpenseActivity extends AppCompatActivity {
     }
 
     private boolean validateInput() {
-        // Validar aquí los datos
-        return true;
+        EditText titulo = this.findViewById(R.id.titulo_gasto);
+        EditText precio = this.findViewById(R.id.precio_gasto);
+
+        boolean correcto = true;
+        String str_titulo = titulo.getText().toString();
+        String str_precio = precio.getText().toString();
+
+        try {
+            Double d = Double.valueOf(str_precio);
+        }catch (NumberFormatException e) {
+            correcto = false;
+        }
+        if (str_titulo.trim().isEmpty()){
+            correcto = false;
+        }
+        return correcto;
     }
 
     private void fillExpenseData() {
