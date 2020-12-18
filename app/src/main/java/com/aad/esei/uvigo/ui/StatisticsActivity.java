@@ -1,9 +1,11 @@
 package com.aad.esei.uvigo.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,13 +15,13 @@ import com.aad.esei.uvigo.R;
 import com.aad.esei.uvigo.core.CategoriaGasto;
 import com.aad.esei.uvigo.core.DBManager;
 import com.aad.esei.uvigo.core.GastoDAO;
-import com.anychart.AnyChart;
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Pie;
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
 import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.joda.time.DateTime;
 
@@ -30,6 +32,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.mikephil.charting.animation.Easing.EaseInCirc;
+
 
 public class StatisticsActivity extends Activity implements DatePickerListener {
 
@@ -37,7 +41,7 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
     private Map<String, TextView> mapTextViewPorCateg;
 
     private String id_coche;
-    private Pie pie;
+    private PieChart pieChart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,12 +50,9 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
 
         mapTextViewPorCateg = this.initTextViewMap();
         id_coche = (String) StatisticsActivity.this.getIntent().getExtras().get("coche");
-        pie = AnyChart.pie();
+        pieChart = this.findViewById(R.id.graphCustom);
 
         setDatePicker();
-
-        AnyChartView anyChartView = (AnyChartView) findViewById(R.id.graphCustom); //Tiene que estar aquí al final
-        anyChartView.setChart(pie);
     }
 
     @Override
@@ -64,6 +65,7 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
     @Override
     public void onDateSelected(@NonNull final DateTime dateSelected) {
         this.setDataClean(this.mapTextViewPorCateg);
+        pieChart.invalidate();
         this.setCategoriesValues(this.id_coche, dateSelected.toDate(), dateSelected.plusDays(1).toDate());
         this.dateSelected = dateSelected;
     }
@@ -72,12 +74,12 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
         GastoDAO gastoDAO = new GastoDAO(DBManager.getManager(this.getApplicationContext()));
         Cursor cursor = gastoDAO.getAllGastosCoche(coche, fechaInicio, fechaFin);
 
-        Map<String, Double> mapSumaTotalPorCateg = new LinkedHashMap<>();
-        List<DataEntry> data = new ArrayList<>();
+        Map<String, Float> mapSumaTotalPorCateg = new LinkedHashMap<>();
+        List<PieEntry> data = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 String cat = (String) cursor.getString(cursor.getColumnIndex("categoria"));
-                Double gasto = (Double) cursor.getDouble(cursor.getColumnIndex("precio"));
+                Float gasto = (Float) cursor.getFloat(cursor.getColumnIndex("precio"));
 
                 if (mapSumaTotalPorCateg.containsKey(cat)) {
                     mapSumaTotalPorCateg.put(cat, mapSumaTotalPorCateg.get(cat) + gasto);
@@ -90,32 +92,45 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
             for (String cat : mapSumaTotalPorCateg.keySet()) {
                 double precio = Double.parseDouble(mapSumaTotalPorCateg.get(cat).toString());
                 mapTextViewPorCateg.get(cat).setText(new DecimalFormat("#.00").format(precio));
-                data.add(new ValueDataEntry(CategoriaGasto.valueOf(cat).getCategoria(), mapSumaTotalPorCateg.get(cat)));
+                data.add(new PieEntry( mapSumaTotalPorCateg.get(cat), CategoriaGasto.valueOf(cat).getCategoria()));
             }
 
         } else {
-            data.add(new ValueDataEntry(getString(R.string.singastos), 0));
+            data.add(new PieEntry(0f,getString(R.string.singastos)));
         }
 
-        pie.data(data);
+        setPieChart(data);
         cursor.close();
+    }
+
+    private void setPieChart(List<PieEntry> data) {
+        pieChart.invalidate();
+
+        pieChart.animateX(3000, EaseInCirc);
+        pieChart.setEntryLabelColor(Color.rgb(0,0,0));
+        PieDataSet set = new PieDataSet(data, "Gastos");
+        set.setValueTextColor(Color.rgb(0,0,0));
+        set.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        PieData pieData = new PieData(set);
+        pieChart.setData(pieData);
     }
 
     private void setDatePicker() {
         HorizontalPicker picker = (HorizontalPicker) findViewById(R.id.datePicker);
         picker
-                .setDayOfWeekTextColor(Color.CYAN)
+                .setDayOfWeekTextColor(Color.BLACK)
                 .setTodayButtonTextColor(Color.rgb(255, 143, 0))
                 .setTodayDateTextColor(Color.BLACK)
-                .setUnselectedDayTextColor(Color.YELLOW)
-                .setMonthAndYearTextColor(Color.RED)
+                .setUnselectedDayTextColor(getResources().getColor(R.color.dorado))
+                .setMonthAndYearTextColor(Color.BLACK)
                 .setDateSelectedTextColor(Color.BLACK)
-                .setDateSelectedColor(Color.rgb(255, 143, 0))
+                .setDateSelectedColor(getResources().getColor(R.color.verdeClaro))
                 .setListener(this)
                 .showTodayButton(true)
-                .setBackgroundColor(Color.rgb(42, 42, 42));
+                .setBackgroundColor(getResources().getColor(R.color.barColor));
         picker.init();
         picker.setDate(new DateTime());
+        Log.d("###############",new DateTime().toString());
     }
 
     private void setDataClean(Map<String, TextView> map) {

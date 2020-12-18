@@ -7,7 +7,8 @@
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
     <!-- Fila 1-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -295,8 +296,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
+            <!--
             <com.anychart.AnyChartView
+                android:id="@+id/graphCustom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
+            <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/graphCustom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
