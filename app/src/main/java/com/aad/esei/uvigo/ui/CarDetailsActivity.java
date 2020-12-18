@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -137,8 +138,21 @@ public class CarDetailsActivity extends AppCompatActivity {
     }
 
     private boolean validateInput() {
-        // Validar aquí los datos
-        return true;
+        boolean valid = true;
+
+        EditText matricula = this.findViewById(R.id.coche_matricula);
+        EditText nombre = this.findViewById(R.id.coche_nombre);
+        EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
+
+        if (matricula.getText().toString().trim().length() < 6 ) {
+            Toast.makeText(this, "Matrícula inválida", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+        if (nombre.getText().toString().trim().length() < 3) {
+            Toast.makeText(this, "Nombre demasiado corto", Toast.LENGTH_SHORT).show();
+        }
+
+        return valid;
     }
 
     @Override

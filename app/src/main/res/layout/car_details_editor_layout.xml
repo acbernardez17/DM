@@ -20,6 +20,7 @@
                 android:id="@+id/coche_matricula"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="20"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -35,6 +36,7 @@
                 android:id="@+id/coche_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="50"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +112,7 @@
                 android:id="@+id/coche_marca"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="30"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -125,6 +128,7 @@
                 android:id="@+id/coche_modelo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="30"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
