@@ -1,15 +1,10 @@
 package com.aad.esei.uvigo.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,8 +16,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aad.esei.uvigo.R;
-import com.aad.esei.uvigo.core.Categoria_Gasto;
+import com.aad.esei.uvigo.core.CategoriaGasto;
 import com.aad.esei.uvigo.core.CocheDAO;
 import com.aad.esei.uvigo.core.DBManager;
 import com.aad.esei.uvigo.core.GastoDAO;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private final int EDIT_EXPENSE = 202;
 
     private int categNew;
-    private ElementCursorAdapter elementCursorAdapter;
+    private GastosCursorAdapter gastosCursorAdapter;
     private GastoDAO gastoDAO;
     private CocheDAO cocheDAO;
 
@@ -72,23 +71,22 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         this.manager = DBManager.getManager(this.getApplicationContext());
 
-        final ListView listView = (ListView)findViewById(R.id.list_icons);
+        final ListView listView = (ListView) findViewById(R.id.list_icons);
         registerForContextMenu(listView);
-        this.elementCursorAdapter = new ElementCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
-        listView.setAdapter(elementCursorAdapter);
+        this.gastosCursorAdapter = new GastosCursorAdapter(this, this.gastoDAO.getAllGastosCoche(getSpinnerSelection()));
+        listView.setAdapter(gastosCursorAdapter);
         this.updateCursorList();
     }
 
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         this.manager.close();
-        this.elementCursorAdapter.getCursor().close();
+        this.gastosCursorAdapter.getCursor().close();
     }
 
 
-        @Override
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -104,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
         String category;
         switch (item.getItemId()) {
             case R.id.edit_OP:
-                cursor = (Cursor) this.elementCursorAdapter.getCursor();
+                cursor = (Cursor) this.gastosCursorAdapter.getCursor();
                 cursor.moveToPosition(info.position);
                 ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
-                category =  cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_CATEGORIA));
-                updateExpense(ID,category);
+                category = cursor.getString(cursor.getColumnIndexOrThrow(DBManager.GASTO_CATEGORIA));
+                updateExpense(ID, category);
                 return true;
             case R.id.delete_op:
-                cursor = (Cursor) this.elementCursorAdapter.getCursor();
+                cursor = (Cursor) this.gastosCursorAdapter.getCursor();
                 cursor.moveToPosition(info.position);
                 ID = cursor.getInt(cursor.getColumnIndexOrThrow(DBManager.GASTO_ID));
                 verifyDelete(ID);
@@ -121,15 +119,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateExpense(int id, String categoria){
-        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
-        this.categNew = Categoria_Gasto.getByCode(categoria).ordinal();
+    private void updateExpense(int id, String categoria) {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        this.categNew = CategoriaGasto.getByCode(categoria).ordinal();
 
-        dlg.setTitle( getString(R.string.sel_tipo_gasto) );
+        dlg.setTitle(getString(R.string.sel_tipo_gasto));
 
         dlg.setSingleChoiceItems(
-                Categoria_Gasto.arrayCategorias(),
-                Categoria_Gasto.getByCode(categoria).ordinal(),
+                CategoriaGasto.arrayCategorias(),
+                CategoriaGasto.getByCode(categoria).ordinal(),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -141,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.startActivityForResult(
-                        new Intent(MainActivity.this, AddExpenseActivity.class)
-                                .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
+                        new Intent(MainActivity.this, ExpenseDetailsActivity.class)
+                                .putExtra("cat", CategoriaGasto.values()[MainActivity.this.categNew])
                                 .putExtra("pk_gasto", id)
                                 .putExtra("pk", getSpinnerSelection()), EDIT_EXPENSE);
                 ;
@@ -153,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         dlg.create().show();
     }
 
-    private void verifyDelete(int id){
+    private void verifyDelete(int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
         builder.setTitle(getString(R.string.borrar));
@@ -165,8 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-                {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int ii) {
                         dialog.dismiss();
                     }
@@ -196,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
         this.perfiles = new ArrayList<>();
         if (cursorCoches.moveToFirst()) {
             do {
-                this.perfiles.add( cursorCoches.getString(0) );
-            } while (cursorCoches.moveToNext() );
+                this.perfiles.add(cursorCoches.getString(0));
+            } while (cursorCoches.moveToNext());
         } else {
             this.showFirstTimeDialog();
         }
@@ -229,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == ADD_CAR_CODE) {
             String pk = data.getExtras().getString("pk");
 
-            Toast.makeText(this, getString(R.string.nuevo_coche_toast) + pk, Toast.LENGTH_LONG).show();
             this.updateSpinnerPerfiles();
             this.setSpinnerSelection(perfiles.size() - 1);
             this.updateCursorList();
@@ -245,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultCode == RESULT_CANCELED && requestCode == EDIT_CAR_CODE) {
             // Nada
 
-        } else if(resultCode == RESULT_OK && (requestCode == ADD_EXPENSE || requestCode == EDIT_EXPENSE)){
+        } else if (resultCode == RESULT_OK && (requestCode == ADD_EXPENSE || requestCode == EDIT_EXPENSE)) {
             this.updateCursorList();
         }
     }
@@ -270,14 +266,14 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.estadisticas:
                 this.startActivity(new Intent(this, StatisticsActivity.class)
-                        .putExtra("coche", getSpinnerSelection() ));
+                        .putExtra("coche", getSpinnerSelection()));
                 toret = true;
                 break;
 
             case R.id.detalles_coche:
                 this.startActivityForResult(
                         new Intent(this, CarDetailsActivity.class)
-                        .putExtra("pk", getSpinnerSelection()), EDIT_CAR_CODE);
+                                .putExtra("pk", getSpinnerSelection()), EDIT_CAR_CODE);
                 toret = true;
                 break;
         }
@@ -311,14 +307,14 @@ public class MainActivity extends AppCompatActivity {
         dlg.show();
     }
 
-    private void showAddDialog(){
-        AlertDialog.Builder dlg = new AlertDialog.Builder( this );
+    private void showAddDialog() {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
         this.categNew = 0;
 
-        dlg.setTitle( getString(R.string.sel_tipo_gasto));
+        dlg.setTitle(getString(R.string.sel_tipo_gasto));
 
         dlg.setSingleChoiceItems(
-                Categoria_Gasto.arrayCategorias(),
+                CategoriaGasto.arrayCategorias(),
                 0,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -331,10 +327,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.startActivityForResult(
-                        new Intent(MainActivity.this, AddExpenseActivity.class)
-                                .putExtra("cat", Categoria_Gasto.values()[MainActivity.this.categNew])
-                                .putExtra("pk", getSpinnerSelection()),ADD_EXPENSE);
-                                ;
+                        new Intent(MainActivity.this, ExpenseDetailsActivity.class)
+                                .putExtra("cat", CategoriaGasto.values()[MainActivity.this.categNew])
+                                .putExtra("pk", getSpinnerSelection()), ADD_EXPENSE);
+                ;
             }
         });
         dlg.setNegativeButton(getString(R.string.cancel), null);
@@ -342,9 +338,9 @@ public class MainActivity extends AppCompatActivity {
         dlg.create().show();
     }
 
-    private void updateCursorList(){
+    private void updateCursorList() {
         Cursor cursor = this.gastoDAO.getAllGastosCoche(getSpinnerSelection());
-        this.elementCursorAdapter.changeCursor(cursor);
+        this.gastosCursorAdapter.changeCursor(cursor);
     }
 
 }

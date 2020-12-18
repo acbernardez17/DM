@@ -1,6 +1,6 @@
 package com.aad.esei.uvigo.core;
 
-public enum Categoria_Gasto {
+public enum CategoriaGasto {
     REP("Repostaje"),
     ST("Servicio Técnico"),
     MT("Mantenimiento"),
@@ -16,44 +16,46 @@ public enum Categoria_Gasto {
 
     private final String codigo;
     private final String categoria;
-    Categoria_Gasto(String categoria){
+
+    CategoriaGasto(String categoria) {
         this.codigo = this.name();
         this.categoria = categoria;
     }
-    public String getCategoria(){
-        return this.categoria;
-    }
 
-    public  String getCodigo(){
-        return this.codigo;
-    }
-
-    public boolean equalsCategoria(String str) {
-        return this.categoria.equals(str);
-    }
-
-    public static Categoria_Gasto getByCode(String code) {
-        for(Categoria_Gasto g : values()) {
-            if(g.getCodigo().equals(code)) return g;
+    public static CategoriaGasto getByCode(String code) {
+        for (CategoriaGasto g : values()) {
+            if (g.getCodigo().equals(code)) return g;
         }
         return null;
     }
 
-    public static String[] arrayCategorias(){
-        Categoria_Gasto[] arr = values();
+    public static String[] arrayCategorias() {
+        CategoriaGasto[] arr = values();
         String[] toret = new String[arr.length];
-        for (int i = 0; i <arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             toret[i] = arr[i].getCategoria();
         }
         return toret;
     }
 
-    public static String[] arrayCodigos(){
-        Categoria_Gasto[] arr = values();
+    public static String[] arrayCodigos() {
+        CategoriaGasto[] arr = values();
         String[] toret = new String[arr.length];
-        for (int i = 0; i <arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             toret[i] = arr[i].getCodigo();
         }
         return toret;
+    }
+
+    public String getCategoria() {
+        return this.categoria;
+    }
+
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    public boolean equalsCategoria(String str) {
+        return this.categoria.equals(str);
     }
 }

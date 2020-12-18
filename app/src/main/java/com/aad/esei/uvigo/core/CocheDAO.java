@@ -37,7 +37,7 @@ public class CocheDAO {
         try {
             db.beginTransaction();
             db.update(DBManager.COCHE_TABLE, valores,
-                    DBManager.COCHE_ID + "= ?", new String[]{ matricula });
+                    DBManager.COCHE_ID + "= ?", new String[]{matricula});
             db.setTransactionSuccessful();
             primaryKey = matricula;
 
@@ -54,7 +54,7 @@ public class CocheDAO {
         try {
             db.beginTransaction();
             db.delete(DBManager.COCHE_TABLE,
-                    DBManager.COCHE_ID + "= ?", new String[]{ matricula });
+                    DBManager.COCHE_ID + "= ?", new String[]{matricula});
             db.setTransactionSuccessful();
 
         } catch (SQLException exc) {
@@ -65,12 +65,12 @@ public class CocheDAO {
     }
 
     public Cursor getAllCoches() {
-        return db.rawQuery("SELECT * FROM " + DBManager.COCHE_TABLE, null );
+        return db.rawQuery("SELECT * FROM " + DBManager.COCHE_TABLE, null);
     }
 
     public Cursor getCocheByMatricula(String pk) {
         return db.rawQuery("SELECT * FROM " + DBManager.COCHE_TABLE
-                        + " WHERE " + DBManager.COCHE_ID + " = ?", new String[]{pk});
+                + " WHERE " + DBManager.COCHE_ID + " = ?", new String[]{pk});
     }
 
     public int getCochesCount() {

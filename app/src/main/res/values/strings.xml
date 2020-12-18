@@ -9,7 +9,7 @@
     <string name="nombre">Nombre</string>
     <string name="tipo_de_combustible">Tipo de combustible</string>
     <string name="capacidad_del_tanque_litros">Capacidad del tanque (litros)</string>
-    <string name="km_iniciales">Km iniciales</string>
+    <string name="km_iniciales">Kilometraje</string>
     <string name="litros_iniciales">Litros iniciales</string>
     <string name="marca">Marca</string>
     <string name="modelo">Modelo</string>
@@ -38,8 +38,8 @@
     <string name="pk_gasto">pk_gasto</string>
     <string name="pattern">yyyy-MM-dd HH:mm:ss</string>
     <string name="info_valida">Informacion inválida</string>
-    <string name="edit_gasto">\"Editar Gasto \"</string>
-    <string name="add_gasto">\"Añadir Gasto \"</string>
+    <string name="edit_gasto">Editar Gasto</string>
+    <string name="add_gasto">Añadir Gasto</string>
     <string name="utc">UTC</string>
     <string name="pk">pk</string>
     <string name="edit_car">Editar coche</string>
@@ -50,7 +50,7 @@
     <string name="sel_tipo_gasto">Selecciona tipo de gasto:</string>
     <string name="preg_borrar_gasto">¿Quieres borrar el gasto?</string>
     <string name="si">Si</string>
-    <string name="nuevo_coche_toast">\"Nuevo coche añadido con PK: \"</string>
+    <string name="nuevo_coche_toast">Nuevo coche añadido con PK:</string>
     <string name="car">coche</string>
     <string name="primera_eje">Primera ejecución</string>
     <string name="need_add">Necesitas añadir al menos un coche para poder usar la aplicación</string>
@@ -58,4 +58,5 @@
     <string name="singastos">¡SIN GASTOS!</string>
     <string name="borrar">Borrar</string>
     <string name="siguiente">siguiente</string>
+    <string name="icono_gasto">Icono gasto</string>
 </resources>

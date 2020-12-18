@@ -34,7 +34,7 @@ public class CarDetailsActivity extends AppCompatActivity {
         this.setupTipoCombustibleDropdown();
 
         String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get(getString(R.string.pk));
-        if ( !"".equals(pk) ) {
+        if (!"".equals(pk)) {
             actionBar.setTitle(R.string.edit_car);
             this.fillCarData(pk);
         } else {
@@ -56,7 +56,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
-        EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
         EditText marca = this.findViewById(R.id.coche_marca);
         EditText modelo = this.findViewById(R.id.coche_modelo);
 
@@ -71,7 +70,6 @@ public class CarDetailsActivity extends AppCompatActivity {
             spinnerCombustible.setText(cursorCoches.getString(4), false);
             combustibleMax.setText(cursorCoches.getString(5));
             kmIniciales.setText(cursorCoches.getString(6));
-            litrosIniciales.setText(cursorCoches.getString(7));
         }
     }
 
@@ -80,7 +78,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
-        EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
         EditText marca = this.findViewById(R.id.coche_marca);
         EditText modelo = this.findViewById(R.id.coche_modelo);
 
@@ -89,7 +86,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getText().toString());
         valores.put(DBManager.COCHE_COMBUSTIBLE_MAX, combustibleMax.getText().toString());
         valores.put(DBManager.COCHE_KM_INICIALES, kmIniciales.getText().toString());
-        valores.put(DBManager.COCHE_LITROS_INICIALES, litrosIniciales.getText().toString());
         valores.put(DBManager.COCHE_MARCA, marca.getText().toString());
         valores.put(DBManager.COCHE_MODELO, modelo.getText().toString());
 
@@ -103,7 +99,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         AutoCompleteTextView spinnerCombustible = this.findViewById(R.id.spinner_combustible);
         EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
         EditText kmIniciales = this.findViewById(R.id.coche_km_iniciales);
-        EditText litrosIniciales = this.findViewById(R.id.coche_litros_iniciales);
         EditText marca = this.findViewById(R.id.coche_marca);
         EditText modelo = this.findViewById(R.id.coche_modelo);
 
@@ -112,7 +107,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         valores.put(DBManager.COCHE_TIPO_COMBUSTIBLE, spinnerCombustible.getText().toString());
         valores.put(DBManager.COCHE_COMBUSTIBLE_MAX, combustibleMax.getText().toString());
         valores.put(DBManager.COCHE_KM_INICIALES, kmIniciales.getText().toString());
-        valores.put(DBManager.COCHE_LITROS_INICIALES, litrosIniciales.getText().toString());
         valores.put(DBManager.COCHE_MARCA, marca.getText().toString());
         valores.put(DBManager.COCHE_MODELO, modelo.getText().toString());
 
@@ -123,7 +117,7 @@ public class CarDetailsActivity extends AppCompatActivity {
     private void saveCar() {
         if (this.validateInput()) {
             String pk = (String) CarDetailsActivity.this.getIntent().getExtras().get("pk");
-            String primaryKey = "";
+            String primaryKey;
             if ("".equals(pk)) {
                 primaryKey = CarDetailsActivity.this.saveCarDetails();
             } else {
@@ -142,9 +136,8 @@ public class CarDetailsActivity extends AppCompatActivity {
 
         EditText matricula = this.findViewById(R.id.coche_matricula);
         EditText nombre = this.findViewById(R.id.coche_nombre);
-        EditText combustibleMax = this.findViewById(R.id.coche_combustible_max);
 
-        if (matricula.getText().toString().trim().length() < 6 ) {
+        if (matricula.getText().toString().trim().length() < 6) {
             Toast.makeText(this, "Matrícula inválida", Toast.LENGTH_SHORT).show();
             valid = false;
         }
@@ -158,17 +151,18 @@ public class CarDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.add_car_menu, menu);
+        inflater.inflate(R.menu.add_edit_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.save_car_icon:
+            case R.id.save_icon:
                 this.saveCar();
                 return true;
             case android.R.id.home:
+                this.setResult(RESULT_CANCELED);
                 this.finish();
                 return true;
             default:

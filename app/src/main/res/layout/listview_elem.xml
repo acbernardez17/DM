@@ -1,83 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:layout_marginVertical="10dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/img_icono_gasto"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/icono_gasto"
+        android:scaleType="fitCenter" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="110dp"
-            android:scaleType="fitCenter"
-            android:id="@+id/img_icono_gasto"/>
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="20dp"
-                    android:id="@+id/lbl_tipo_gasto"
-                    android:text="@string/reabastecimiento"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:id="@+id/lbl_fecha_gasto"
-                    android:textSize="15dp"
-                    android:text="@string/lunes_23"
-                    android:layout_alignParentStart="true"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/lbl_cantidad_gasto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"
-                    android:textSize="15dp"
-                    android:text="@string/_50_00"
-                    tools:ignore="HardcodedText" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/lbl_titulo_gasto"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_margin="5dp"
-                >
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbl_titulo_gasto"
-                    android:textSize="18dp"
-                    android:text="@string/titulo"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
+                android:text="@string/reabastecimiento"
+                android:textSize="20sp" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lbl_fecha_gasto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="12dp"
+                android:text="@string/lunes_23"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/lbl_cantidad_gasto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:text="@string/_50_00"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lbl_tipo_gasto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/titulo"
+                android:textSize="18sp" />
+        </LinearLayout>-->
     </LinearLayout>
 
 </LinearLayout>

@@ -1,127 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
     <!-- Fila 1-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight=".25">
+        android:layout_weight=".25"
+        android:orientation="horizontal">
         <!-- Col 1/ Fila1 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/repostajes"
+                android:layout_gravity="center"
                 android:ellipsize="end"
-                android:maxLines="1"
                 android:gravity="center"
-                android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:maxLines="1"
+                android:text="@string/repostajes"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_gasolinera"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_gasolinera" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_repostaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
         <!-- Col 2/ Fila1 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/servicio_t_cnico"
-                android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_servicio_tecnico"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_servicio_tecnico" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_servicio_tecnico"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
         <!-- Col 3/ Fila1 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/itv"
-                android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_itv"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_itv" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_itv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
 
         </LinearLayout>
@@ -174,86 +189,97 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
         <!-- Col 1 /Fila2 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight=".13">
+            android:layout_weight=".13"
+            android:orientation="vertical">
             <!-- Fila1/ Col1/ Fila2-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_weight=".5"
                 android:gravity="center"
-                android:layout_weight=".5">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/multas"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:text="@string/multas"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_multas"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_multas" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/lbl_multas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="numberDecimal"
                         android:text="@string/_0"
-                        android:inputType="numberDecimal"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="@string/euro"/><![CDATA[
-                ]]></LinearLayout>
+                        android:text="@string/euro"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" /><![CDATA[
+                ]]>
+                </LinearLayout>
             </LinearLayout>
             <!-- Fila2/ Col1/ Fila2-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_weight=".5"
                 android:gravity="center"
-                android:layout_weight=".5">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/seguro"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_seguro_coche"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_seguro_coche" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/lbl_seguro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="numberDecimal"
                         android:text="@string/_0"
-                        android:inputType="numberDecimal"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="@string/euro"/>
+                        android:text="@string/euro"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -261,100 +287,111 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".5"
             android:gravity="center"
-            android:layout_weight=".5">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="@string/overall"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
             <com.anychart.AnyChartView
                 android:id="@+id/graphCustom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
         <!-- Col 3 /Fila2 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight=".13">
+            android:layout_weight=".13"
+            android:orientation="vertical">
             <!-- Fila1/ Col3/ Fila2-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_weight=".5"
                 android:gravity="center"
-                android:layout_weight=".5">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/mantenimiento"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mantenimiento"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_mantenimiento" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/lbl_mantenimiento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="numberDecimal"
                         android:text="@string/_0"
-                        android:inputType="numberDecimal"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="@string/euro"/>
+                        android:text="@string/euro"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </LinearLayout>
             </LinearLayout>
             <!-- Fila2/ Col3/ Fila2-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_weight=".5"
                 android:gravity="center"
-                android:layout_weight=".5">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/lavados"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lavados"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lavados" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/lbl_lavados"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:inputType="numberDecimal"
                         android:text="@string/_0"
-                        android:inputType="numberDecimal"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:text="@string/euro"/>
+                        android:text="@string/euro"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -364,155 +401,175 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.25" >
+        android:layout_weight="0.25"
+        android:orientation="horizontal">
         <!-- Col 1/ Fila3 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/modificaciones"
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:text="@string/modificaciones"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_coche_deportivo"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_coche_deportivo" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_modificaciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
         <!-- Col 2/ Fila3 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/impuestos"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_rueda"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_rueda" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_impuestos_rodaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
         <!-- Col 3/ Fila3 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/parking"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_parking"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_parking" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_parking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
         <!-- Col 4/ Fila3 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_weight=".25"
             android:gravity="center"
-            android:layout_weight=".25">
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/otros"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                android:text="@string/otros"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_tres_puntos"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_tres_puntos" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/lbl_otros"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:inputType="numberDecimal"
                     android:text="@string/_0"
-                    android:inputType="numberDecimal"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:text="@string/euro"/>
+                    android:text="@string/euro"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
