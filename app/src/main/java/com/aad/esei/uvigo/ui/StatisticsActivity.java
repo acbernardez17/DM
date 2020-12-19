@@ -1,6 +1,5 @@
 package com.aad.esei.uvigo.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -91,7 +90,7 @@ public class StatisticsActivity extends Activity implements DatePickerListener {
 
             for (String cat : mapSumaTotalPorCateg.keySet()) {
                 double precio = Double.parseDouble(mapSumaTotalPorCateg.get(cat).toString());
-                mapTextViewPorCateg.get(cat).setText(new DecimalFormat("#.00").format(precio));
+                mapTextViewPorCateg.get(cat).setText(new DecimalFormat("0.00").format(precio));
                 data.add(new PieEntry( mapSumaTotalPorCateg.get(cat), CategoriaGasto.valueOf(cat).getCategoria()));
             }
 

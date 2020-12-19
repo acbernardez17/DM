@@ -75,7 +75,7 @@ public class GastosCursorAdapter extends CursorAdapter {
         //LBL_TIPO_GASTO.setText(categoria.getCategoria());
         LBL_FECHA_GASTO.setText(fecha);
         LBL_TITULO_GASTO.setText(titulo);
-        LBL_CANT_GASTO.setText(new DecimalFormat("#.00").format(precio_total) + "€");
+        LBL_CANT_GASTO.setText(new DecimalFormat("0.00").format(precio_total) + "€");
 
         if (categoria.equals(CategoriaGasto.REP)) {
             IMG_GASTO.setImageResource(R.drawable.ic_gasolinera);
